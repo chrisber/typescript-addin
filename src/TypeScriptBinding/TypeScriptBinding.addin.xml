@@ -11,12 +11,7 @@
 	
 	<Runtime>
 		<Import assembly="TypeScriptBinding.dll" />
-		<Import assembly="Newtonsoft.Json.dll" />
-		
-		<Import file="msvcp100.dll"/>
-		<Import file="msvcr100.dll"/>
-		<Import file="Noesis.Javascript.dll"/>
-		
+
 		<Import file="Templates/TypeScript.EmptyFile.xft.xml"/>
 		
 		<Import file="Scripts/compile.js"/>

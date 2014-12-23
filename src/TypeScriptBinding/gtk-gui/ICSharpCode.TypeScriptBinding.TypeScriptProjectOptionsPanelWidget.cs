@@ -221,7 +221,7 @@ namespace ICSharpCode.TypeScriptBinding
 			this.allowImplicitAnyCheckButton = new global::Gtk.CheckButton ();
 			this.allowImplicitAnyCheckButton.CanFocus = true;
 			this.allowImplicitAnyCheckButton.Name = "allowImplicitAnyCheckButton";
-			this.allowImplicitAnyCheckButton.Label = global::Mono.Unix.Catalog.GetString ("Allow implicit \'any\' types");
+			this.allowImplicitAnyCheckButton.Label = global::Mono.Unix.Catalog.GetString ("Allow implicit 'any' types");
 			this.allowImplicitAnyCheckButton.DrawIndicator = true;
 			this.allowImplicitAnyCheckButton.UseUnderline = true;
 			this.compilerOptionsVBox.Add (this.allowImplicitAnyCheckButton);

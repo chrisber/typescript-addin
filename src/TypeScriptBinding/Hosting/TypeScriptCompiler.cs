@@ -29,7 +29,7 @@
 using System;
 using System.Collections.Generic;
 using MonoDevelop.Core;
-using Noesis.Javascript;
+//using Noesis.Javascript;
 
 namespace ICSharpCode.TypeScriptBinding.Hosting
 {
@@ -38,7 +38,7 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 		const int SuccessExitCode = 0;
 		const int ErrorExitCode = 1;
 		
-		JavascriptContext context = new JavascriptContext();
+//		JavascriptContext context = new JavascriptContext();
 		ScriptLoader scriptLoader = new ScriptLoader();
 		TypeScriptCompilerIOHost host;
 		TypeScriptCompilerArguments commandLineArguments;
@@ -58,8 +58,8 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 			host = new TypeScriptCompilerIOHost();
 			host.arguments = commandLineArguments.GetArguments();
 			
-			context.SetParameter("host", host);
-			context.Run(scriptLoader.GetTypeScriptCompilerScript());
+//			context.SetParameter("host", host);
+//			context.Run(scriptLoader.GetTypeScriptCompilerScript());
 			
 			var result = new TypeScriptCompilerResult {
 				HasErrors = host.QuitExitCode != SuccessExitCode
@@ -73,7 +73,7 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 		
 		public void Dispose()
 		{
-			context.Dispose();
+//			context.Dispose();
 		}
 		
 		public string GetCommandLine()
