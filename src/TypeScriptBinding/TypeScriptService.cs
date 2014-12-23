@@ -41,14 +41,20 @@ namespace ICSharpCode.TypeScriptBinding
 {
 	public static class TypeScriptService
 	{
+        static V8TypescriptProcessor v8TypescriptProcessor = new V8TypescriptProcessor();
 		static readonly TypeScriptContextProvider contextProvider = new TypeScriptContextProvider();
 		static TypeScriptWorkbenchMonitor workbenchMonitor;
 		static TypeScriptProjectMonitor projectMonitor;
 		static ConfigurationSelector activeConfiguration;
+
 		
 		public static TypeScriptContextProvider ContextProvider {
 			get { return contextProvider; }
 		}
+
+        public static V8TypescriptProcessor V8TypescriptProcessor {
+            get { return v8TypescriptProcessor; }
+        }
 		
 		public static void Initialize()
 		{

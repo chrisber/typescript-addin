@@ -11,6 +11,9 @@
 	
 	<Runtime>
 		<Import assembly="TypeScriptBinding.dll" />
+		<Import assembly="V8.Net.Proxy.Interface.dll" />
+		<Import assembly="V8.Net.SharedTypes.dll" />
+		<Import assembly="V8.Net.dll" />
 
 		<Import file="Templates/TypeScript.EmptyFile.xft.xml"/>
 		

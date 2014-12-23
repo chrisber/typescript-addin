@@ -41,43 +41,13 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 	public class TypeScriptContext : IDisposable
 	{
 //		JavascriptContext context = new JavascriptContext();
-		LanguageServiceShimHost host;
 		IScriptLoader scriptLoader;
 		bool runInitialization = true;
+        V8TypescriptProcessor v8TypescriptProcessor;
 		
 		public TypeScriptContext(IScriptLoader scriptLoader, ILogger logger)
 		{
-            using (var engine = new V8Engine())
-            {
-                string tscJs = File.ReadAllText(@"/Build/Typescript/typescript-addin/src/TypeScriptBinding/bin/Debug/tsc.js");
-                engine.RegisterType<string>();
-                engine.RegisterType<bool>();
-                engine.RegisterType<TypeScriptCompilerEnvironment>(null, recursive: true);
-                engine.GlobalObject.SetProperty("monodevelop", new LanguageServiceShimHost(logger));
-
-                /// <summary>
-                ///In V8.net How can i compile the script one time and execute it multiple times . 
-                /// It would save my compilation time everytime i call execute 
-                /// Compile .See <a href="https://v8dotnet.codeplex.com/discussions/458793">Excecute compiled script</a>.
-                /// </summary>
-                //compile the tsc.js script
-                var scriptHandle = engine.Compile(tscJs,"Monodevelop.TypeScript.Compiler");
-                //excecute the script with the handler
-
-                var result = engine.Execute (scriptHandle, "V8.NET Unit Tester");
-
-                //var executeFuncHandle = engine.Execute ("(function(monodevelopArgs){ts.executeCommandLine(monodevelopArgs)})","");
-
-
-
-
-                Console.WriteLine("Value: {0}", result);
-            }
-			this.scriptLoader = scriptLoader;
-			host = new LanguageServiceShimHost(logger);
-			host.AddDefaultLibScript(new FilePath(scriptLoader.LibScriptFileName), scriptLoader.GetLibScript());
-//			context.SetParameter("host", host);
-//			context.Run(scriptLoader.GetTypeScriptServicesScript());
+        
 		}
 		
 		public void Dispose()
@@ -87,14 +57,14 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 		
 		public void AddFile(FilePath fileName, string text)
 		{
-			host.AddFile(fileName, text);
+			v8TypescriptProcessor.Host.AddFile(fileName, text);
 		}
 		
 		public void RunInitialisationScript()
 		{
 			if (runInitialization) {
 				runInitialization = false;
-//				context.Run(scriptLoader.GetMainScript());
+                v8TypescriptProcessor.RunMainScript();
 			}
 		}
 		
@@ -102,7 +72,7 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 		{
 			// HACK - run completion on first file so the user does not have to wait about 
 			// 1-2 seconds for the completion list to appear the first time it is triggered.
-			string fileName = host.GetFileNames().FirstOrDefault();
+			string fileName = v8TypescriptProcessor.Host.GetFileNames().FirstOrDefault();
 			if (fileName != null) {
 				GetCompletionItems(fileName, 1, null, false);
 			}
@@ -110,90 +80,90 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 		
 		public void UpdateFile(FilePath fileName, string text)
 		{
-			host.UpdateFile(fileName, text);
+			v8TypescriptProcessor.Host.UpdateFile(fileName, text);
 		}
 		
 		public CompletionInfo GetCompletionItems(FilePath fileName, int offset, string text, bool memberCompletion)
 		{
-			host.position = offset;
-			host.UpdateFileName(fileName);
-			host.isMemberCompletion = memberCompletion;
+            v8TypescriptProcessor.Host.position = offset;
+			v8TypescriptProcessor.Host.UpdateFileName(fileName);
+			v8TypescriptProcessor.Host.isMemberCompletion = memberCompletion;
 			
-//			context.Run(scriptLoader.GetMemberCompletionScript());
+            v8TypescriptProcessor.RunMemberCompletionScript();
 			
-			return host.CompletionResult.result;
+			return v8TypescriptProcessor.Host.CompletionResult.result;
 		}
 		
 		public CompletionEntryDetails GetCompletionEntryDetails(FilePath fileName, int offset, string entryName)
 		{
-			host.position = offset;
-			host.UpdateFileName(fileName);
-			host.completionEntry = entryName;
+			v8TypescriptProcessor.Host.position = offset;
+			v8TypescriptProcessor.Host.UpdateFileName(fileName);
+			v8TypescriptProcessor.Host.completionEntry = entryName;
 			
-//			context.Run(scriptLoader.GetCompletionDetailsScript());
+            v8TypescriptProcessor.RunCompletionDetailsScript();
 			
-			return host.CompletionEntryDetailsResult.result;
+			return v8TypescriptProcessor.Host.CompletionEntryDetailsResult.result;
 		}
 		
 		public SignatureInfo GetSignature(FilePath fileName, int offset)
 		{
-			host.position = offset;
-			host.UpdateFileName(fileName);
+			v8TypescriptProcessor.Host.position = offset;
+			v8TypescriptProcessor.Host.UpdateFileName(fileName);
 			
-//			context.Run(scriptLoader.GetFunctionSignatureScript());
+            v8TypescriptProcessor.RunFunctionSignatureScript();
 			
-			return host.SignatureResult.result;
+			return v8TypescriptProcessor.Host.SignatureResult.result;
 		}
 		
 		public ReferenceEntry[] FindReferences(FilePath fileName, int offset)
 		{
-			host.position = offset;
-			host.UpdateFileName(fileName);
+			v8TypescriptProcessor.Host.position = offset;
+			v8TypescriptProcessor.Host.UpdateFileName(fileName);
 			
-//			context.Run(scriptLoader.GetFindReferencesScript());
+            v8TypescriptProcessor.RunFindReferencesScript();
 			
-			return host.ReferencesResult.result;
+			return v8TypescriptProcessor.Host.ReferencesResult.result;
 		}
 		
 		public DefinitionInfo[] GetDefinition(FilePath fileName, int offset)
 		{
-			host.position = offset;
-			host.UpdateFileName(fileName);
+			v8TypescriptProcessor.Host.position = offset;
+			v8TypescriptProcessor.Host.UpdateFileName(fileName);
 			
-//			context.Run(scriptLoader.GetDefinitionScript());
+            v8TypescriptProcessor.RunDefinitionScript();
 			
-			return host.DefinitionResult.result;
+			return v8TypescriptProcessor.Host.DefinitionResult.result;
 		}
 		
 		public NavigateToItem[] GetLexicalStructure(FilePath fileName)
 		{
-			host.UpdateFileName(fileName);
-//			context.Run(scriptLoader.GetNavigationScript());
+			v8TypescriptProcessor.Host.UpdateFileName(fileName);
+            v8TypescriptProcessor.RunNavigationScript();
 			
-			return host.LexicalStructure.result;
+			return v8TypescriptProcessor.Host.LexicalStructure.result;
 		}
 		
 		public void RemoveFile(FilePath fileName)
 		{
-			host.RemoveFile(fileName);
+			v8TypescriptProcessor.Host.RemoveFile(fileName);
 		}
 		
 		public EmitOutput Compile(FilePath fileName, ITypeScriptOptions options)
 		{
-			host.UpdateCompilerSettings(options);
-			host.UpdateFileName(fileName);
-//			context.Run(scriptLoader.GetLanguageServicesCompileScript());
+			v8TypescriptProcessor.Host.UpdateCompilerSettings(options);
+			v8TypescriptProcessor.Host.UpdateFileName(fileName);
+            v8TypescriptProcessor.RunLanguageServicesCompileScript();
 			
-			return host.CompilerResult.result;
+			return v8TypescriptProcessor.Host.CompilerResult.result;
 		}
 		
 		public Diagnostic[] GetSemanticDiagnostics(FilePath fileName, ITypeScriptOptions options)
 		{
-			host.UpdateCompilerSettings(options);
-			host.UpdateFileName(fileName);
-//			context.Run(scriptLoader.GetSemanticDiagnosticsScript());
+			v8TypescriptProcessor.Host.UpdateCompilerSettings(options);
+			v8TypescriptProcessor.Host.UpdateFileName(fileName);
+            v8TypescriptProcessor.RunSemanticDiagnosticsScript();
 			
-			return host.SemanticDiagnosticsResult.result;
+			return v8TypescriptProcessor.Host.SemanticDiagnosticsResult.result;
 		}
 		
 		public void AddFiles(IEnumerable<TypeScriptFile> files)
