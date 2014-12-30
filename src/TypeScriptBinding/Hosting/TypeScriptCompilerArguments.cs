@@ -82,7 +82,7 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 				args.Add("--sourcemap");
 			}
 			
-			if (!String.IsNullOrEmpty(options.ModuleKind) && (options.ModuleKind.ToLowerInvariant() != "none")) {
+			if (!String.IsNullOrEmpty(options.ModuleKind) && (options.ModuleKind != "none")) {
 				args.Add("--module");
 				args.Add(options.ModuleKind);
 			}

@@ -38,6 +38,7 @@ using V8.Net;
 
 namespace TypeScriptHosting
 {
+    [ScriptObject("LanguageServiceShimHost", security: ScriptMemberSecurity.Permanent)]
 	public class LanguageServiceShimHost : ILanguageServiceShimHost
 	{
 		Dictionary<string, Script> scripts = new Dictionary<string, Script>();
@@ -58,7 +59,7 @@ namespace TypeScriptHosting
 		
 		internal void AddFile(FilePath fileName, string text)
 		{
-			string lowercaseFileName = fileName.FullPath.ToLower();
+			string lowercaseFileName = fileName.FullPath;
 			if (!scripts.ContainsKey(lowercaseFileName)) {
 				scripts.Add(lowercaseFileName, new Script(lowercaseFileName, text));
 			}
@@ -67,7 +68,7 @@ namespace TypeScriptHosting
         [ScriptMember (inScriptName: "FindScript", security: ScriptMemberSecurity.Permanent)]
 		Script FindScript(FilePath fileName)
 		{
-			string matchFileName = fileName.ToLower();
+			string matchFileName = fileName;
 			Script script = null;
 			if (scripts.TryGetValue(matchFileName, out script)) {
 				return script;
@@ -77,7 +78,7 @@ namespace TypeScriptHosting
 		
 		internal void UpdateFile(FilePath fileName, string text)
 		{
-			scripts[fileName.FullPath.ToLower()].Update(text);
+			scripts[fileName.FullPath].Update(text);
 		}
 		
         [ScriptMember (inScriptName: "position", security: ScriptMemberSecurity.Permanent)]
@@ -89,6 +90,9 @@ namespace TypeScriptHosting
         [ScriptMember (inScriptName: "completionEntry", security: ScriptMemberSecurity.Permanent)]
 		public string completionEntry { get; set; }
 		
+
+        internal CompletionResult CompletionResult { get; private set; }
+
         [ScriptMember (inScriptName: "updateCompletionInfoAtCurrentPosition", security: ScriptMemberSecurity.Permanent)]
 		public void updateCompletionInfoAtCurrentPosition(string completionInfo)
 		{
@@ -96,7 +100,6 @@ namespace TypeScriptHosting
 			CompletionResult = JsonConvert.DeserializeObject<CompletionResult>(completionInfo);
 		}
 		
-		internal CompletionResult CompletionResult { get; private set; }
 		
         [ScriptMember (inScriptName: "updateCompletionEntryDetailsAtCurrentPosition", security: ScriptMemberSecurity.Permanent)]
 		public void updateCompletionEntryDetailsAtCurrentPosition(string completionEntryDetails)
@@ -218,12 +221,12 @@ namespace TypeScriptHosting
 		public int getScriptVersion(string fileName)
 		{
 			LogDebug("Host.getScriptVersion: " + fileName);
-			return scripts[fileName.ToLowerInvariant()].Version;
+			return scripts[fileName].Version;
 		}
 		
 		internal void UpdateFileName(FilePath fileName)
 		{
-			this.fileName = fileName.ToLower();
+			this.fileName = fileName;
 		}
 		
 		internal void RemoveFile(FilePath fileName)
@@ -342,5 +345,11 @@ namespace TypeScriptHosting
 		}
 		
 		internal SemanticDiagnosticsResult SemanticDiagnosticsResult { get; private set; }
+
+        [ScriptMember (inScriptName: "getCancellationToken", security: ScriptMemberSecurity.Permanent)]
+        public bool getCancellationToken (){
+            return false;
+        }
+
 	}
 }

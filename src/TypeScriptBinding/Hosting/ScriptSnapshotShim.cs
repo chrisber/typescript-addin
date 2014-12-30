@@ -28,9 +28,11 @@
 
 using System;
 using Newtonsoft.Json;
+using V8.Net;
 
 namespace ICSharpCode.TypeScriptBinding.Hosting
 {
+    [ScriptObject("ScriptSnapshotShim", security: ScriptMemberSecurity.Permanent)]
 	public class ScriptSnapshotShim : IScriptSnapshotShim
 	{
 		ILogger logger;
@@ -41,17 +43,20 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 			this.logger = logger;
 			this.script = script;
 		}
-		
+
+        [ScriptMember (inScriptName: "getText", security: ScriptMemberSecurity.Permanent)]
 		public string getText(int start, int end)
 		{
 			return script.Source.Substring(start, end - start);
 		}
-		
+
+        [ScriptMember (inScriptName: "getLength", security: ScriptMemberSecurity.Permanent)]
 		public int getLength()
 		{
 			return script.Source.Length;
 		}
-		
+
+        [ScriptMember (inScriptName: "getLineStartPositions", security: ScriptMemberSecurity.Permanent)]
 		public string getLineStartPositions()
 		{
 			Log("ScriptSnapshotShim.getLineStartPositions");
@@ -63,7 +68,8 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 			
 			return json;
 		}
-		
+
+        [ScriptMember (inScriptName: "getTextChangeRangeSinceVersion", security: ScriptMemberSecurity.Permanent)]
 		public string getTextChangeRangeSinceVersion(int scriptVersion)
 		{
 			Log("ScriptSnapshotShim.getTextChangeRangeSinceVersion: version={0}", scriptVersion);
@@ -77,7 +83,8 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 			
 			return json;
 		}
-		
+
+        [ScriptMember (inScriptName: "Log", security: ScriptMemberSecurity.Permanent)]
 		void Log(string format, params object[] args)
 		{
 			logger.log(String.Format(format, args));

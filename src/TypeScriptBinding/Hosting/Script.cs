@@ -28,15 +28,18 @@
 
 using System;
 using System.Collections.Generic;
+using V8.Net;
 
 namespace ICSharpCode.TypeScriptBinding.Hosting
 {
+    [ScriptObject("Script", security: ScriptMemberSecurity.Permanent)]
 	public class Script
 	{
 		string fileName;
 		List<int> lineStartPositions = new List<int>();
 		List<int> lengths = new List<int>();
 		
+
 		public Script(string fileName, string source)
 		{
 			this.fileName = fileName;

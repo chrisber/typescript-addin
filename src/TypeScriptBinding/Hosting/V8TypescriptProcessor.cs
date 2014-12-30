@@ -9,26 +9,24 @@ namespace ICSharpCode.TypeScriptBinding
 {
     public class V8TypescriptProcessor
     {
-        V8Engine v8Engine; 
-        IScriptLoader scriptLoader;
+        static V8Engine v8Engine; 
+        static IScriptLoader _scriptLoader;
+        static LanguageServiceShimHost v8Host;
 
-        Handle serviceScriptHandle;
-        Handle mainScriptHandle;
-        Handle memberCompletionScriptHandle;
-        Handle completionDetailsScriptHandle;
-        Handle functionSignatureScriptHandle;
-        Handle findReferencesScriptHandle;
-        Handle definitionScriptHandle;
-        Handle navigationScriptHandle;
-        Handle languageServicesCompileScriptHandle;
-        Handle semanticDiagnosticsScriptHandle;
+        static Handle serviceScriptHandle;
+        static Handle mainScriptHandle;
+        static Handle memberCompletionScriptHandle;
+        static Handle completionDetailsScriptHandle;
+        static Handle functionSignatureScriptHandle;
+        static Handle findReferencesScriptHandle;
+        static Handle definitionScriptHandle;
+        static Handle navigationScriptHandle;
+        static Handle languageServicesCompileScriptHandle;
+        static Handle semanticDiagnosticsScriptHandle;
 
 
 
-        public LanguageServiceShimHost Host {
-            get;
-            set;
-        }
+
 
         public V8TypescriptProcessor()
             : this(new ScriptLoader(), new LanguageServiceLogger())
@@ -38,29 +36,26 @@ namespace ICSharpCode.TypeScriptBinding
         public V8TypescriptProcessor (IScriptLoader scriptLoader, ILogger logger)
         {
             try {
-            v8Engine = new V8Engine();
-                string tscJs = File.ReadAllText("/Build/Typescript/typescript-addin/src/TypeScriptBinding/bin/Debug/tsc.js");
-                string tscJs1 = File.ReadAllText("/Build/Typescript/typescript-addin/src/TypeScriptBinding/bin/Debug/tsc.js");
-                string tscJs2 = File.ReadAllText("/Build/Typescript/typescript-addin/src/TypeScriptBinding/bin/Debug/tsc.js");
-                string tscJs3 = File.ReadAllText("/Build/Typescript/typescript-addin/src/TypeScriptBinding/bin/Debug/tsc.js");
+                v8Engine = new V8Engine();
+                _scriptLoader = scriptLoader;
+                 v8Host = new LanguageServiceShimHost(logger);
+                v8Host.AddDefaultLibScript(new FilePath(_scriptLoader.LibScriptFileName), _scriptLoader.GetLibScript());
 
-                this.scriptLoader = scriptLoader;
-            Host = new LanguageServiceShimHost(logger);
-            Host.AddDefaultLibScript(new FilePath(scriptLoader.LibScriptFileName), scriptLoader.GetLibScript());
+                v8Engine.RegisterType<Script>(null, recursive: true);
+                v8Engine.RegisterType<ScriptSnapshotShim>(null, recursive: true);
+                v8Engine.RegisterType<LanguageServiceShimHost>(null, recursive: true);
+                v8Engine.GlobalObject.SetProperty("host", v8Host);
 
-            v8Engine.RegisterType<LanguageServiceShimHost>(null, recursive: true);
-            v8Engine.GlobalObject.SetProperty("host", Host);
-
-            serviceScriptHandle = v8Engine.Compile(scriptLoader.GetTypeScriptServicesScript(),"Monodevelop.ScriptServicesScript");
-            mainScriptHandle = v8Engine.Compile(scriptLoader.GetMainScript(),"Monodevelop.MainScript");
-            memberCompletionScriptHandle = v8Engine.Compile(scriptLoader.GetMemberCompletionScript(),"Monodevelop.MemberCompletionScript");
-            completionDetailsScriptHandle = v8Engine.Compile(scriptLoader.GetCompletionDetailsScript(),"Monodevelop.CompletionDetailsScript");
-            functionSignatureScriptHandle = v8Engine.Compile(scriptLoader.GetFunctionSignatureScript(),"Monodevelop.FunctionSignatureScript");
-            findReferencesScriptHandle = v8Engine.Compile(scriptLoader.GetFindReferencesScript(),"Monodevelop.FindReferencesScript");
-            definitionScriptHandle = v8Engine.Compile(scriptLoader.GetDefinitionScript(),"Monodevelop.DefinitionScript");
-            navigationScriptHandle = v8Engine.Compile(scriptLoader.GetNavigationScript(),"Monodevelop.NavigationScriptHandle");
-            languageServicesCompileScriptHandle = v8Engine.Compile(scriptLoader.GetLanguageServicesCompileScript(),"Monodevelop.LanguageServicesCompileScrip");
-            semanticDiagnosticsScriptHandle = v8Engine.Compile(scriptLoader.GetSemanticDiagnosticsScript(),"Monodevelop.SemanticDiagnosticsScript");
+                serviceScriptHandle = v8Engine.Compile(_scriptLoader.GetTypeScriptServicesScript(),"Monodevelop.ScriptServicesScript");
+                mainScriptHandle = v8Engine.Compile(_scriptLoader.GetMainScript(),"Monodevelop.MainScript");
+                memberCompletionScriptHandle = v8Engine.Compile(_scriptLoader.GetMemberCompletionScript(),"Monodevelop.MemberCompletionScript");
+                completionDetailsScriptHandle = v8Engine.Compile(_scriptLoader.GetCompletionDetailsScript(),"Monodevelop.CompletionDetailsScript");
+                functionSignatureScriptHandle = v8Engine.Compile(_scriptLoader.GetFunctionSignatureScript(),"Monodevelop.FunctionSignatureScript");
+                findReferencesScriptHandle = v8Engine.Compile(_scriptLoader.GetFindReferencesScript(),"Monodevelop.FindReferencesScript");
+                definitionScriptHandle = v8Engine.Compile(_scriptLoader.GetDefinitionScript(),"Monodevelop.DefinitionScript");
+                navigationScriptHandle = v8Engine.Compile(_scriptLoader.GetNavigationScript(),"Monodevelop.NavigationScriptHandle");
+                languageServicesCompileScriptHandle = v8Engine.Compile(_scriptLoader.GetLanguageServicesCompileScript(),"Monodevelop.LanguageServicesCompileScrip");
+                semanticDiagnosticsScriptHandle = v8Engine.Compile(_scriptLoader.GetSemanticDiagnosticsScript(),"Monodevelop.SemanticDiagnosticsScript");
 
 
 
@@ -72,53 +67,61 @@ namespace ICSharpCode.TypeScriptBinding
 
         }
 
-        public void RunMainScript(){
+        public static void RunMainScript(){
             var result = v8Engine.Execute (mainScriptHandle);
             log (result);
         }
 
-        public void RunMemberCompletionScript(){
+        public static void RunMemberCompletionScript(){
+            try {
             var result = v8Engine.Execute (memberCompletionScriptHandle);
-            log (result);
+                log (result);
+            }catch (Exception e){
+                log (e.ToString ());
+            }
         }
 
-        public void RunCompletionDetailsScript(){
+        public static void RunCompletionDetailsScript(){
             var result = v8Engine.Execute (completionDetailsScriptHandle);
             log (result);
         }
 
-        public void RunFunctionSignatureScript(){
+        public static void RunFunctionSignatureScript(){
             var result = v8Engine.Execute (functionSignatureScriptHandle);
             log (result);
         }
 
-        public void RunFindReferencesScript(){
+        public static void RunFindReferencesScript(){
             var result = v8Engine.Execute (findReferencesScriptHandle);
             log (result);
         }
 
-        public void RunDefinitionScript(){
+        public static void RunDefinitionScript(){
             var result = v8Engine.Execute (definitionScriptHandle);
             log (result);
         }
 
 
-        public void RunNavigationScript(){
+        public static void RunNavigationScript(){
             var result = v8Engine.Execute (navigationScriptHandle);
             log (result);
         }
 
-        public void RunLanguageServicesCompileScript(){
+        public static void RunLanguageServicesCompileScript(){
             var result = v8Engine.Execute (languageServicesCompileScriptHandle);
             log (result);
+
         }
 
-        public void RunSemanticDiagnosticsScript(){
+        public static void RunSemanticDiagnosticsScript(){
             var result = v8Engine.Execute (semanticDiagnosticsScriptHandle);
             log (result);
         }
-
-        public void log(string result){
+            
+        public static LanguageServiceShimHost host(){
+            return v8Host;
+        }
+        public static  void log(string result){
             System.Diagnostics.Debugger.Log(0, null, result);
 
 

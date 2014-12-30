@@ -1,10 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-# SharpDevelop 4.3
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeScriptBinding", "TypeScriptBinding\TypeScriptBinding.csproj", "{94BBCA55-A20E-4782-93B0-3566D185F7C1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeScriptBinding.Tests", "TypeScriptBinding.Tests\TypeScriptBinding.Tests.csproj", "{6F22CECC-2ABA-4D5D-A3F8-1C4F4A46C915}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "V8.Net-SharedTypes.MonoDevelop", "..\..\..\v8dotnet\Source\V8.Net-SharedTypes\V8.Net-SharedTypes.MonoDevelop.csproj", "{2155327D-386A-4F80-81FB-918A4442C834}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "V8.Net-ProxyInterface.MonoDevelop", "..\..\..\v8dotnet\Source\V8.NET-ProxyInterface\V8.Net-ProxyInterface.MonoDevelop.csproj", "{355737A7-E486-4D4C-AA5B-DE432C23AEEE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "V8.Net.MonoDevelop", "..\..\..\v8dotnet\Source\V8.Net\V8.Net.MonoDevelop.csproj", "{C898E990-54EB-40AC-9408-E416A838EC77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,13 +17,28 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{94BBCA55-A20E-4782-93B0-3566D185F7C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{94BBCA55-A20E-4782-93B0-3566D185F7C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{94BBCA55-A20E-4782-93B0-3566D185F7C1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{94BBCA55-A20E-4782-93B0-3566D185F7C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6F22CECC-2ABA-4D5D-A3F8-1C4F4A46C915}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2155327D-386A-4F80-81FB-918A4442C834}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2155327D-386A-4F80-81FB-918A4442C834}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2155327D-386A-4F80-81FB-918A4442C834}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2155327D-386A-4F80-81FB-918A4442C834}.Release|Any CPU.Build.0 = Release|Any CPU
+		{355737A7-E486-4D4C-AA5B-DE432C23AEEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{355737A7-E486-4D4C-AA5B-DE432C23AEEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{355737A7-E486-4D4C-AA5B-DE432C23AEEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{355737A7-E486-4D4C-AA5B-DE432C23AEEE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6F22CECC-2ABA-4D5D-A3F8-1C4F4A46C915}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6F22CECC-2ABA-4D5D-A3F8-1C4F4A46C915}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F22CECC-2ABA-4D5D-A3F8-1C4F4A46C915}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F22CECC-2ABA-4D5D-A3F8-1C4F4A46C915}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F22CECC-2ABA-4D5D-A3F8-1C4F4A46C915}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94BBCA55-A20E-4782-93B0-3566D185F7C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94BBCA55-A20E-4782-93B0-3566D185F7C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94BBCA55-A20E-4782-93B0-3566D185F7C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94BBCA55-A20E-4782-93B0-3566D185F7C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C898E990-54EB-40AC-9408-E416A838EC77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C898E990-54EB-40AC-9408-E416A838EC77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C898E990-54EB-40AC-9408-E416A838EC77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C898E990-54EB-40AC-9408-E416A838EC77}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = TypeScriptBinding\TypeScriptBinding.csproj
 	EndGlobalSection
 EndGlobal

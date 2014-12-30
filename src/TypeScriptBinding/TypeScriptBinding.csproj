@@ -7,7 +7,6 @@
     <OutputType>Library</OutputType>
     <RootNamespace>ICSharpCode.TypeScriptBinding</RootNamespace>
     <AssemblyName>TypeScriptBinding</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <NoWin32Manifest>False</NoWin32Manifest>
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
@@ -17,6 +16,7 @@
     <WarningLevel>4</WarningLevel>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -45,13 +45,11 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <CustomCommands>
       <CustomCommands>
-        <Command type="Execute" command="/opt/monodevelop/lib/monodevelop/bin/MonoDevelop.exe" workingdir="/opt/monodevelop/lib/monodevelop/bin/">
-          <EnvironmentVariables>
-            <Variable name="MONODEVELOP_DEV_ADDINS" value="${TargetDir}" />
-          </EnvironmentVariables>
-        </Command>
+        <Command type="Execute" command="/opt/monodevelop/lib/monodevelop/bin/MonoDevelop.exe" workingdir="/opt/monodevelop/lib/monodevelop/bin/" />
       </CustomCommands>
     </CustomCommands>
+    <Externalconsole>true</Externalconsole>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ICSharpCode.NRefactory">
@@ -86,15 +84,6 @@
     <Reference Include="glib-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <Reference Include="atk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <Reference Include="Mono.Posix" />
-    <Reference Include="V8.Net">
-      <HintPath>..\..\lib\V8Engine\V8.Net.dll</HintPath>
-    </Reference>
-    <Reference Include="V8.Net.Proxy.Interface">
-      <HintPath>..\..\lib\V8Engine\V8.Net.Proxy.Interface.dll</HintPath>
-    </Reference>
-    <Reference Include="V8.Net.SharedTypes">
-      <HintPath>..\..\lib\V8Engine\V8.Net.SharedTypes.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BuildConfiguration.cs" />
@@ -283,5 +272,19 @@
       <Link>libv8.so</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\v8dotnet\Source\V8.Net\V8.Net.MonoDevelop.csproj">
+      <Project>{C898E990-54EB-40AC-9408-E416A838EC77}</Project>
+      <Name>V8.Net.MonoDevelop</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\v8dotnet\Source\V8.NET-ProxyInterface\V8.Net-ProxyInterface.MonoDevelop.csproj">
+      <Project>{355737A7-E486-4D4C-AA5B-DE432C23AEEE}</Project>
+      <Name>V8.Net-ProxyInterface.MonoDevelop</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\v8dotnet\Source\V8.Net-SharedTypes\V8.Net-SharedTypes.MonoDevelop.csproj">
+      <Project>{2155327D-386A-4F80-81FB-918A4442C834}</Project>
+      <Name>V8.Net-SharedTypes.MonoDevelop</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

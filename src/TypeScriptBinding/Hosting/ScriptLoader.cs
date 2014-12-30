@@ -63,7 +63,7 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 			navigationScriptFileName = GetFullPath("navigation.js");
 			completionDetailsScriptFileName = GetFullPath("completionDetails.js");
 			
-			languageServicesCompileScriptFileName = GetFullPath("compile.js");
+            languageServicesCompileScriptFileName = GetFullPath("compile.js");
 			semanticDiagnosticsScriptFileName = GetFullPath("semanticDiagnostics.js");
 			
 			typeScriptCompilerFileName = GetFullPath("tsc.js");
@@ -144,7 +144,7 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 		
 		public string GetLanguageServicesCompileScript()
 		{
-			return ReadScript(languageServicesCompileScriptFileName);
+            return ReadScript(languageServicesCompileScriptFileName);
 		}
 		
 		public string GetSemanticDiagnosticsScript()

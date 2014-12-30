@@ -43,7 +43,7 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 //		JavascriptContext context = new JavascriptContext();
 		IScriptLoader scriptLoader;
 		bool runInitialization = true;
-        V8TypescriptProcessor v8TypescriptProcessor;
+         
 		
 		public TypeScriptContext(IScriptLoader scriptLoader, ILogger logger)
 		{
@@ -57,14 +57,14 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 		
 		public void AddFile(FilePath fileName, string text)
 		{
-			v8TypescriptProcessor.Host.AddFile(fileName, text);
+			V8TypescriptProcessor.host().AddFile(fileName, text);
 		}
 		
 		public void RunInitialisationScript()
 		{
 			if (runInitialization) {
 				runInitialization = false;
-                v8TypescriptProcessor.RunMainScript();
+                V8TypescriptProcessor.RunMainScript();
 			}
 		}
 		
@@ -72,7 +72,7 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 		{
 			// HACK - run completion on first file so the user does not have to wait about 
 			// 1-2 seconds for the completion list to appear the first time it is triggered.
-			string fileName = v8TypescriptProcessor.Host.GetFileNames().FirstOrDefault();
+			string fileName = V8TypescriptProcessor.host().GetFileNames().FirstOrDefault();
 			if (fileName != null) {
 				GetCompletionItems(fileName, 1, null, false);
 			}
@@ -80,90 +80,90 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 		
 		public void UpdateFile(FilePath fileName, string text)
 		{
-			v8TypescriptProcessor.Host.UpdateFile(fileName, text);
+			V8TypescriptProcessor.host().UpdateFile(fileName, text);
 		}
 		
 		public CompletionInfo GetCompletionItems(FilePath fileName, int offset, string text, bool memberCompletion)
 		{
-            v8TypescriptProcessor.Host.position = offset;
-			v8TypescriptProcessor.Host.UpdateFileName(fileName);
-			v8TypescriptProcessor.Host.isMemberCompletion = memberCompletion;
+            V8TypescriptProcessor.host().position = offset;
+			V8TypescriptProcessor.host().UpdateFileName(fileName);
+			V8TypescriptProcessor.host().isMemberCompletion = memberCompletion;
 			
-            v8TypescriptProcessor.RunMemberCompletionScript();
+            V8TypescriptProcessor.RunMemberCompletionScript();
 			
-			return v8TypescriptProcessor.Host.CompletionResult.result;
+			return V8TypescriptProcessor.host().CompletionResult.result;
 		}
 		
 		public CompletionEntryDetails GetCompletionEntryDetails(FilePath fileName, int offset, string entryName)
 		{
-			v8TypescriptProcessor.Host.position = offset;
-			v8TypescriptProcessor.Host.UpdateFileName(fileName);
-			v8TypescriptProcessor.Host.completionEntry = entryName;
+			V8TypescriptProcessor.host().position = offset;
+			V8TypescriptProcessor.host().UpdateFileName(fileName);
+			V8TypescriptProcessor.host().completionEntry = entryName;
 			
-            v8TypescriptProcessor.RunCompletionDetailsScript();
+            V8TypescriptProcessor.RunCompletionDetailsScript();
 			
-			return v8TypescriptProcessor.Host.CompletionEntryDetailsResult.result;
+			return V8TypescriptProcessor.host().CompletionEntryDetailsResult.result;
 		}
 		
 		public SignatureInfo GetSignature(FilePath fileName, int offset)
 		{
-			v8TypescriptProcessor.Host.position = offset;
-			v8TypescriptProcessor.Host.UpdateFileName(fileName);
+			V8TypescriptProcessor.host().position = offset;
+			V8TypescriptProcessor.host().UpdateFileName(fileName);
 			
-            v8TypescriptProcessor.RunFunctionSignatureScript();
+            V8TypescriptProcessor.RunFunctionSignatureScript();
 			
-			return v8TypescriptProcessor.Host.SignatureResult.result;
+			return V8TypescriptProcessor.host().SignatureResult.result;
 		}
 		
 		public ReferenceEntry[] FindReferences(FilePath fileName, int offset)
 		{
-			v8TypescriptProcessor.Host.position = offset;
-			v8TypescriptProcessor.Host.UpdateFileName(fileName);
+			V8TypescriptProcessor.host().position = offset;
+			V8TypescriptProcessor.host().UpdateFileName(fileName);
 			
-            v8TypescriptProcessor.RunFindReferencesScript();
+            V8TypescriptProcessor.RunFindReferencesScript();
 			
-			return v8TypescriptProcessor.Host.ReferencesResult.result;
+			return V8TypescriptProcessor.host().ReferencesResult.result;
 		}
 		
 		public DefinitionInfo[] GetDefinition(FilePath fileName, int offset)
 		{
-			v8TypescriptProcessor.Host.position = offset;
-			v8TypescriptProcessor.Host.UpdateFileName(fileName);
+			V8TypescriptProcessor.host().position = offset;
+			V8TypescriptProcessor.host().UpdateFileName(fileName);
 			
-            v8TypescriptProcessor.RunDefinitionScript();
+            V8TypescriptProcessor.RunDefinitionScript();
 			
-			return v8TypescriptProcessor.Host.DefinitionResult.result;
+			return V8TypescriptProcessor.host().DefinitionResult.result;
 		}
 		
 		public NavigateToItem[] GetLexicalStructure(FilePath fileName)
 		{
-			v8TypescriptProcessor.Host.UpdateFileName(fileName);
-            v8TypescriptProcessor.RunNavigationScript();
+			V8TypescriptProcessor.host().UpdateFileName(fileName);
+            V8TypescriptProcessor.RunNavigationScript();
 			
-			return v8TypescriptProcessor.Host.LexicalStructure.result;
+			return V8TypescriptProcessor.host().LexicalStructure.result;
 		}
 		
 		public void RemoveFile(FilePath fileName)
 		{
-			v8TypescriptProcessor.Host.RemoveFile(fileName);
+			V8TypescriptProcessor.host().RemoveFile(fileName);
 		}
 		
 		public EmitOutput Compile(FilePath fileName, ITypeScriptOptions options)
 		{
-			v8TypescriptProcessor.Host.UpdateCompilerSettings(options);
-			v8TypescriptProcessor.Host.UpdateFileName(fileName);
-            v8TypescriptProcessor.RunLanguageServicesCompileScript();
+			V8TypescriptProcessor.host().UpdateCompilerSettings(options);
+			V8TypescriptProcessor.host().UpdateFileName(fileName);
+            V8TypescriptProcessor.RunLanguageServicesCompileScript();
 			
-			return v8TypescriptProcessor.Host.CompilerResult.result;
+			return V8TypescriptProcessor.host().CompilerResult.result;
 		}
 		
 		public Diagnostic[] GetSemanticDiagnostics(FilePath fileName, ITypeScriptOptions options)
 		{
-			v8TypescriptProcessor.Host.UpdateCompilerSettings(options);
-			v8TypescriptProcessor.Host.UpdateFileName(fileName);
-            v8TypescriptProcessor.RunSemanticDiagnosticsScript();
+			V8TypescriptProcessor.host().UpdateCompilerSettings(options);
+			V8TypescriptProcessor.host().UpdateFileName(fileName);
+            V8TypescriptProcessor.RunSemanticDiagnosticsScript();
 			
-			return v8TypescriptProcessor.Host.SemanticDiagnosticsResult.result;
+			return V8TypescriptProcessor.host().SemanticDiagnosticsResult.result;
 		}
 		
 		public void AddFiles(IEnumerable<TypeScriptFile> files)
