@@ -33,9 +33,10 @@ using V8.Net;
 namespace ICSharpCode.TypeScriptBinding.Hosting
 {
     [ScriptObject("ScriptSnapshotShim", security: ScriptMemberSecurity.Permanent)]
-	public class ScriptSnapshotShim : IScriptSnapshotShim
-	{
-		ILogger logger;
+    public class ScriptSnapshotShim : IScriptSnapshotShim
+    {
+
+        ILogger logger;
 		Script script;
 		
 		public ScriptSnapshotShim(ILogger logger, Script script)
@@ -69,10 +70,10 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 			return json;
 		}
 
-        [ScriptMember (inScriptName: "getTextChangeRangeSinceVersion", security: ScriptMemberSecurity.Permanent)]
-		public string getTextChangeRangeSinceVersion(int scriptVersion)
+        [ScriptMember (inScriptName: "getChangeRange", security: ScriptMemberSecurity.Permanent)]
+        public string getChangeRange(int scriptVersion)
 		{
-			Log("ScriptSnapshotShim.getTextChangeRangeSinceVersion: version={0}", scriptVersion);
+            Log("ScriptSnapshotShim.getChangeRange: version={0}", scriptVersion);
 			if (script.Version == scriptVersion)
 				return null;
 			

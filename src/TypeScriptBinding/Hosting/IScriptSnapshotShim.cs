@@ -35,6 +35,6 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 		string getText(int start, int end);
 		int getLength();
 		string getLineStartPositions();
-		string getTextChangeRangeSinceVersion(int scriptVersion);
+        string getChangeRange(int scriptVersion);
 	}
 }

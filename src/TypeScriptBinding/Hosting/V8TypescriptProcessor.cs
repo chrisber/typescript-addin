@@ -4,6 +4,7 @@ using TypeScriptHosting;
 using ICSharpCode.TypeScriptBinding.Hosting;
 using MonoDevelop.Core;
 using System.IO;
+using System.Diagnostics;
 
 namespace ICSharpCode.TypeScriptBinding
 {
@@ -122,9 +123,8 @@ namespace ICSharpCode.TypeScriptBinding
             return v8Host;
         }
         public static  void log(string result){
-            System.Diagnostics.Debugger.Log(0, null, result);
-
-
+            var mth = new StackTrace().GetFrame(1).GetMethod();
+            System.Diagnostics.Debugger.Log(0, null, mth.ReflectedType.Name +"."+ mth.Name +"()-->"+ result + "\n");
         }
 
 

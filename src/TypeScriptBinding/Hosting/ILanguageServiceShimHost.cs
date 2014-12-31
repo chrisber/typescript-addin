@@ -33,8 +33,8 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 	public interface ILanguageServiceShimHost : ILogger
 	{
 		string getCompilationSettings();
-		string getScriptFileNames();
-		int getScriptVersion(string fileName);
+		string[] getScriptFileNames();
+		string getScriptVersion(string fileName);
 		bool getScriptIsOpen(string fileName);
 		ByteOrderMark getScriptByteOrderMark(string fileName);
 		IScriptSnapshotShim getScriptSnapshot(string fileName);

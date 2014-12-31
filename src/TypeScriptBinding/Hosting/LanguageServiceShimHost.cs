@@ -187,7 +187,7 @@ namespace TypeScriptHosting
         [ScriptMember (inScriptName: "log", security: ScriptMemberSecurity.Permanent)]
 		public void log(string s)
 		{
-            System.Diagnostics.Debug.WriteLine (s);
+            System.Diagnostics.Debugger.Log(0, null, s + "\n");
 			logger.log(s);
 		}
 		
@@ -218,10 +218,10 @@ namespace TypeScriptHosting
 		}
 		
         [ScriptMember (inScriptName: "getScriptVersion", security: ScriptMemberSecurity.Permanent)]
-		public int getScriptVersion(string fileName)
+		public string getScriptVersion(string fileName)
 		{
 			LogDebug("Host.getScriptVersion: " + fileName);
-			return scripts[fileName].Version;
+            return scripts[fileName].Version.ToString();
 		}
 		
 		internal void UpdateFileName(FilePath fileName)
@@ -265,15 +265,10 @@ namespace TypeScriptHosting
 		}
 		
         [ScriptMember (inScriptName: "getScriptFileNames", security: ScriptMemberSecurity.Permanent)]
-		public string getScriptFileNames()
+		public string[] getScriptFileNames()
 		{
 			log("Host.getScriptFileNames");
-			
-			string json = JsonConvert.SerializeObject(scripts.Keys.ToArray());
-			
-			log("Host.getScriptFileNames: " + json);
-			
-			return json;
+            return scripts.Keys.ToArray ();
 		}
 		
         [ScriptMember (inScriptName: "getScriptByteOrderMark", security: ScriptMemberSecurity.Permanent)]
@@ -351,5 +346,24 @@ namespace TypeScriptHosting
             return false;
         }
 
+        [ScriptMember (inScriptName: "getCurrentDirectory", security: ScriptMemberSecurity.Permanent)]
+        public string getCurrentDirectory()
+        {
+            log("Host.getCurrentDirectory");
+            return "";
+        }
+
+        [ScriptMember (inScriptName: "getDefaultLibFilename", security: ScriptMemberSecurity.Permanent)]
+        public string getDefaultLibFilename()
+        {
+            return defaultLibScriptFileName;
+        }
+
+        [ScriptMember (inScriptName: "MonoLog", security: ScriptMemberSecurity.Permanent)]
+        public void MonoLog(string s)
+        {
+            System.Diagnostics.Debugger.Log(0, null,"MonoLog()-->" + s + "\n");
+            logger.log(s);
+        }
 	}
 }

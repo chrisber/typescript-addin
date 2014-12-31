@@ -33401,6 +33401,7 @@ var ts;
         var activeCompletionSession;
         var writer = undefined;
         if (!ts.localizedDiagnosticMessages) {
+        	j
             ts.localizedDiagnosticMessages = host.getLocalizedDiagnosticMessages();
         }
         function getSourceFile(filename) {
