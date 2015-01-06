@@ -55,9 +55,9 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 //			context.Dispose();
 		}
 		
-		public void AddFile(FilePath fileName, string text)
+		public bool AddFile(FilePath fileName, string text)
 		{
-			V8TypescriptProcessor.host().AddFile(fileName, text);
+			return V8TypescriptProcessor.host().AddFile(fileName, text);
 		}
 		
 		public void RunInitialisationScript()
@@ -105,7 +105,7 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 			return V8TypescriptProcessor.host().CompletionEntryDetailsResult.result;
 		}
 		
-		public SignatureInfo GetSignature(FilePath fileName, int offset)
+		public SignatureHelpItems GetSignature(FilePath fileName, int offset)
 		{
 			V8TypescriptProcessor.host().position = offset;
 			V8TypescriptProcessor.host().UpdateFileName(fileName);
@@ -135,12 +135,12 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 			return V8TypescriptProcessor.host().DefinitionResult.result;
 		}
 		
-		public NavigateToItem[] GetLexicalStructure(FilePath fileName)
+        public NavigateToItem[] GetLexicalStructure(FilePath fileName)
 		{
 			V8TypescriptProcessor.host().UpdateFileName(fileName);
             V8TypescriptProcessor.RunNavigationScript();
 			
-			return V8TypescriptProcessor.host().LexicalStructure.result;
+            return V8TypescriptProcessor.host().LexicalStructure.result;
 		}
 		
 		public void RemoveFile(FilePath fileName)

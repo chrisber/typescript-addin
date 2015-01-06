@@ -72,25 +72,30 @@ namespace ICSharpCode.TypeScriptBinding
 		{
 			try {
 				using (TypeScriptContext context = contextFactory.CreateContext()) {
-					var file = new FilePath(fileName);
-					context.AddFile(file, content);
+				 var file = new FilePath(fileName);
+     if(!context.AddFile(file, content)){
+       context.UpdateFile(file,content);
+     }
 					context.RunInitialisationScript();
 					
-					NavigateToItem[] navigation = context.GetLexicalStructure(file);
+     NavigateToItem[] navigation = context.GetLexicalStructure(file);
 					var document = new ReadOnlyDocument(content);
 					var parsedDocument = new TypeScriptParsedDocument(fileName);
 					parsedDocument.AddNavigation(navigation, document);
 					
 					if (options != null) {
 						Diagnostic[] diagnostics = context.GetSemanticDiagnostics(file, options);
-						context.AddFiles(files);
-						parsedDocument.AddDiagnostics(diagnostics, document);
+      if(diagnostics != null && diagnostics.Length > 0){
+         context.AddFiles(files);
+      parsedDocument.AddDiagnostics(diagnostics, document);
+      }
 					}
 
 					return parsedDocument;
 					
 				}
 			} catch (Exception ex) {
+    System.Diagnostics.Debugger.Log(0, null, ex + "\n");
 				Console.WriteLine(ex.ToString());
 				LoggingService.LogDebug(ex.ToString());
 			}
