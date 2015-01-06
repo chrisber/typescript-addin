@@ -30,6 +30,10 @@ using System;
 
 namespace ICSharpCode.TypeScriptBinding.Hosting
 {
+    /// <summary>
+    /// TODO: change this to CompletionEntryDetails (1743 Interface CompletionEntryDetails service.ts ) 
+    /// to get complition like C#
+    /// </summary>
 	public class CompletionInfo
 	{
 		public CompletionInfo()
