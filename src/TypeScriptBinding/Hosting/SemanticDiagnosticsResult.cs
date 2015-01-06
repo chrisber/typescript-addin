@@ -27,11 +27,21 @@
 //
 
 using System;
+using System.Collections.Generic;
 
 namespace ICSharpCode.TypeScriptBinding.Hosting
 {
+    /// <summary>
+    /// TODO: Split this in 2 function calls getsemantic and getdiagnostic
+    /// </summary>
+    public class DiagnosticsResult
+    {
+        public Diagnostic[] semantic { get; set; }
+        public Diagnostic[] syntactic { get; set; }
+    }
+
 	public class SemanticDiagnosticsResult
 	{
-		public Diagnostic[] result { get; set; }
+        public Diagnostic[] result { get; set; }
 	}
 }
