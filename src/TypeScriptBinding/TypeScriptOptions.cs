@@ -58,9 +58,9 @@ namespace ICSharpCode.TypeScriptBinding
 		public string OutputFileName { get; set; }
 		public string OutputDirectory { get; set; }
 		public ModuleGenTarget ModuleTarget { get; set; }
-		public LanguageVersion LanguageVersion { get; set; }
+		public ScriptTarget LanguageVersion { get; set; }
 		
-		public LanguageVersion GetLanguageVersion()
+		public ScriptTarget GetLanguageVersion()
 		{
 			return LanguageVersion;
 		}

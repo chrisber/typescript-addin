@@ -88,10 +88,15 @@ namespace ICSharpCode.TypeScriptBinding
 		Error CreateError(Diagnostic diagnostic, IDocument document)
 		{
 			TextLocation location = document.GetLocation(diagnostic.start);
-			return new Error(
-				ErrorType.Error,
-				diagnostic.ToString(),
-				location);
+
+   if(diagnostic.category.Equals(DiagnosticCategory.Warning)){
+     return new Error( ErrorType.Warning,diagnostic.ToString(),location);
+   }
+   if(diagnostic.category.Equals(DiagnosticCategory.Message)){
+     return new Error( ErrorType.Unknown,diagnostic.ToString(),location);
+   }
+
+   return new Error( ErrorType.Error,diagnostic.ToString(),location);
 		}
 		
 		public override IList<Error> Errors {

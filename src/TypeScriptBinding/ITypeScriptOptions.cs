@@ -39,7 +39,7 @@ namespace ICSharpCode.TypeScriptBinding
 		string ModuleKind { get; }
 		string EcmaScriptVersion { get; }
 		
-		LanguageVersion GetLanguageVersion();
+		ScriptTarget GetLanguageVersion();
 		ModuleGenTarget GetModuleTarget();
 		
 		string GetOutputFileFullPath();

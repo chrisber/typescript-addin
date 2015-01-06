@@ -221,12 +221,12 @@ namespace ICSharpCode.TypeScriptBinding
 			SetStringProperty(config, ModuleKindPropertyName, value);
 		}
 		
-		public LanguageVersion GetLanguageVersion()
+		public ScriptTarget GetLanguageVersion()
 		{
 			if (EcmaScriptVersion == "ES3") {
-				return LanguageVersion.EcmaScript3;
+				return ScriptTarget.ES3;
 			}
-			return LanguageVersion.EcmaScript5;
+			return ScriptTarget.ES5;
 		}
 		
 		public ModuleGenTarget GetModuleTarget()
