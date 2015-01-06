@@ -33,6 +33,10 @@ using ICSharpCode.NRefactory.TypeSystem;
 
 namespace ICSharpCode.TypeScriptBinding.Hosting
 {
+    /// <summary>
+    /// TODO Reimplement NavigateToItem 
+    /// find out how updateLexicalStructure () gets triggert
+    /// </summary>
 	public class NavigateToItem
 	{
 		public string name { get; set; }
@@ -40,43 +44,45 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 		public string kindModifiers { get; set; }
 		public string matchKind { get; set; }
 		public string fileName { get; set; }
-		public int minChar { get; set; }
-		public int limChar { get; set; }
-		public SpanInfo[] additionalSpans { get; set; }
+  public TextSpan textSpan { get; set; }
+//		public int minChar { get; set; }
+//		public int limChar { get; set; }
+//		public SpanInfo[] additionalSpans { get; set; }
 		public string containerName { get; set; }
 		public string containerKind { get; set; }
 		
-		internal int length {
-			get { return limChar - minChar; }
-		}
+//		internal int length {
+//			get { return limChar - minChar; }
+//		}
 		
-		public DomRegion ToRegion(IDocument document)
-		{
-			TextLocation start = document.GetLocation(minChar);
-			TextLocation end = document.GetLocation(limChar);
-			return new DomRegion(start, end);
-		}
+//		public DomRegion ToRegion(IDocument document)
+//		{
+//			TextLocation start = document.GetLocation(minChar);
+//			TextLocation end = document.GetLocation(limChar);
+//			return new DomRegion(start, end);
+//		}
 		
 		public DomRegion ToRegionStartingFromOpeningCurlyBrace(IDocument document)
 		{
-			int startOffset = GetOpeningCurlyBraceOffsetForRegion(document);
-			TextLocation start = document.GetLocation(startOffset);
-			TextLocation end = document.GetLocation(limChar);
-			return new DomRegion(start, end);
+//			int startOffset = GetOpeningCurlyBraceOffsetForRegion(document);
+//			TextLocation start = document.GetLocation(startOffset);
+//			TextLocation end = document.GetLocation(limChar);
+//			return new DomRegion(start, end);
+            return new DomRegion();
 		}
 		
-		int GetOpeningCurlyBraceOffsetForRegion(IDocument document)
-		{
-			int offset = minChar;
-			while (offset < limChar) {
-				if (document.GetCharAt(offset) == '{') {
-					return offset - 1;
-				}
-				++offset;
-			}
-			
-			return minChar;
-		}
+//		int GetOpeningCurlyBraceOffsetForRegion(IDocument document)
+//		{
+//			int offset = minChar;
+//			while (offset < limChar) {
+//				if (document.GetCharAt(offset) == '{') {
+//					return offset - 1;
+//				}
+//				++offset;
+//			}
+//			
+//			return minChar;
+//		}
 		
 		public bool HasContainer()
 		{

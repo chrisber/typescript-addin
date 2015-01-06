@@ -1,1 +1,1 @@
-﻿host.updateLexicalStructure(JSON.stringify(ls.getNavigationBarItems(host.fileName)));
+﻿host.updateLexicalStructure(JSON.stringify({"result" : ls.getNavigateToItems(host.fileName)}));
