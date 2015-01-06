@@ -36,7 +36,7 @@ namespace ICSharpCode.TypeScriptBinding
 	public class TypeScriptParameterDataProvider : ParameterDataProvider
 	{
 		TypeScriptContext context;
-		SignatureInfo signatureInfo;
+		SignatureHelpItems signatureInfo;
 		
 		public TypeScriptParameterDataProvider(TypeScriptContext context, int startOffset)
 			: base(startOffset)
@@ -48,27 +48,29 @@ namespace ICSharpCode.TypeScriptBinding
 		{
 			signatureInfo = context.GetSignature(editor.FileName, editor.Caret.Offset);
 			if (signatureInfo == null) {
-				signatureInfo = new SignatureInfo ();
+				signatureInfo = new SignatureHelpItems ();
 			}
 		}
 		
 		public override string GetParameterName(int overload, int paramIndex)
 		{
-			return GetSignatureOverload(overload).parameters[paramIndex].name;
+            return GetSignatureOverload(overload).parameters[paramIndex].name;
 		}
 		
 		public override int GetParameterCount(int overload)
 		{
-			return GetSignatureOverload(overload).parameters.Length;
+
+            return GetSignatureOverload (overload).ToString().Length;
+
 		}
 		
-		FormalSignatureItemInfo GetSignatureOverload(int overload)
+        SignatureHelpItem GetSignatureOverload(int overload)
 		{
-			return signatureInfo.formal[overload];
+			return signatureInfo.items[overload];
 		}
 		
 		public override int Count {
-			get { return signatureInfo.formal.Length; }
+			get { return signatureInfo.items.Length; }
 		}
 		
 		public override bool AllowParameterList(int overload)
@@ -78,11 +80,11 @@ namespace ICSharpCode.TypeScriptBinding
 		
 		public override TooltipInformation CreateTooltipInformation(int overload, int currentParameter, bool smartWrap)
 		{
-			FormalSignatureItemInfo signatureOverload = GetSignatureOverload(overload);
+            SignatureHelpItem signatureOverload = GetSignatureOverload(overload);
 			
 			return new TooltipInformation {
-				SignatureMarkup = signatureOverload.signatureInfo,
-				SummaryMarkup = signatureOverload.docComment
+                SignatureMarkup = signatureOverload.ToString(),
+                SummaryMarkup = string.Join<SymbolDisplayPart>("",signatureOverload.documentation)
 			};
 		}
 	}

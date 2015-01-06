@@ -43,17 +43,15 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-<CustomCommands>
-  <CustomCommands>
-    <Command type="Execute"
-      command="/usr/lib/monodevelop/bin/MonoDevelop.exe"
-      workingdir="/usr/lib/monodevelop/bin/">
-      <EnvironmentVariables>
-        <Variable name="MONODEVELOP_DEV_ADDINS" value="${TargetDir}" />
-      </EnvironmentVariables>
-    </Command>
-  </CustomCommands>
-</CustomCommands>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="Execute" command="/usr/lib/monodevelop/bin/MonoDevelop.exe" workingdir="/usr/lib/monodevelop/bin/">
+          <EnvironmentVariables>
+            <Variable name="MONODEVELOP_DEV_ADDINS" value="${TargetDir}" />
+          </EnvironmentVariables>
+        </Command>
+      </CustomCommands>
+    </CustomCommands>
     <Externalconsole>true</Externalconsole>
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
@@ -78,18 +76,36 @@
       <HintPath>..\..\lib\MonoDevelop\MonoDevelop.Refactoring.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\lib\Json.NET\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <Reference Include="gdk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <Reference Include="glib-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <Reference Include="atk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Package>gtk-sharp-2.0</Package>
+    </Reference>
+    <Reference Include="gdk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Package>gtk-sharp-2.0</Package>
+    </Reference>
+    <Reference Include="glib-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Package>glib-sharp-2.0</Package>
+    </Reference>
+    <Reference Include="atk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Package>gtk-sharp-2.0</Package>
+    </Reference>
     <Reference Include="Mono.Posix" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.7\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="V8.Net">
+      <HintPath>..\..\lib\V8Engine\V8.Net.SharedTypes.dll</HintPath>
+    </Reference>
+    <Reference Include="V8">
+      <HintPath>..\..\lib\V8Engine\V8.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="V8.Net.Proxy">
+      <HintPath>..\..\lib\V8Engine\V8.Net.Proxy.Interface.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BuildConfiguration.cs" />
@@ -104,7 +120,6 @@
     <Compile Include="Hosting\ActualSignatureInfo.cs" />
     <Compile Include="Hosting\ByteOrderMark.cs" />
     <Compile Include="Hosting\CompilerResult.cs" />
-    <Compile Include="Hosting\CompilerSettings.cs" />
     <Compile Include="Hosting\CompletionEntryDetailsProvider.cs" />
     <Compile Include="Hosting\CompletionEntryDetails.cs" />
     <Compile Include="Hosting\CompletionEntryDetailsResult.cs" />
@@ -128,7 +143,6 @@
     <Compile Include="Hosting\LanguageServiceCompiler.cs" />
     <Compile Include="Hosting\LanguageServiceCompilerResult.cs" />
     <Compile Include="Hosting\LanguageServicesDiagnostics.cs" />
-    <Compile Include="Hosting\LanguageVersion.cs" />
     <Compile Include="Hosting\ModuleGenTarget.cs" />
     <Compile Include="Hosting\NavigateToItem.cs" />
     <Compile Include="Hosting\NavigationInfo.cs" />
@@ -139,7 +153,6 @@
     <Compile Include="Hosting\ScriptsContainer.cs" />
     <Compile Include="Hosting\ScriptSnapshotShim.cs" />
     <Compile Include="Hosting\SemanticDiagnosticsResult.cs" />
-    <Compile Include="Hosting\SignatureInfo.cs" />
     <Compile Include="Hosting\SignatureResult.cs" />
     <Compile Include="Hosting\SourceMapEntry.cs" />
     <Compile Include="Hosting\SpanInfo.cs" />
@@ -201,6 +214,11 @@
     <Compile Include="TypeScriptProjectOptionsPanelWidget.cs" />
     <Compile Include="gtk-gui\ICSharpCode.TypeScriptBinding.TypeScriptProjectOptionsPanelWidget.cs" />
     <Compile Include="Hosting\V8TypescriptProcessor.cs" />
+    <Compile Include="Hosting\ScriptTarget.cs" />
+    <Compile Include="Hosting\ModuleKind.cs" />
+    <Compile Include="Hosting\CompilerOptions.cs" />
+    <Compile Include="Hosting\SyntaticDiagnosticsResult.cs" />
+    <Compile Include="Hosting\SignatureHelpItems.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\lib\Noesis.Javascript\x86\msvcp100.dll">
@@ -259,38 +277,26 @@
     <EmbeddedResource Include="gtk-gui\gui.stetic">
       <LogicalName>gui.stetic</LogicalName>
     </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="..\..\lib\V8Engine\linux.x64\libV8_Net_Proxy.so">
+      <Link>V8Engine\linux.x64\libV8_Net_Proxy.so</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\lib\V8Engine\linux.x64\libicui18n.so">
+      <Link>V8Engine\linux.x64\libicui18n.so</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\lib\V8Engine\linux.x64\libicuuc.so">
+      <Link>V8Engine\linux.x64\libicuuc.so</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\lib\V8Engine\linux.x64\libv8.so">
+      <Link>V8Engine\linux.x64\libv8.so</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <Content Include="..\..\lib\V8Engine\libV8_Net_Proxy.so">
-      <Link>libV8_Net_Proxy.so</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\..\lib\V8Engine\libicui18n.so">
-      <Link>libicui18n.so</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\..\lib\V8Engine\libicuuc.so">
-      <Link>libicuuc.so</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\..\lib\V8Engine\libv8.so">
-      <Link>libv8.so</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\v8dotnet\Source\V8.Net\V8.Net.MonoDevelop.csproj">
-      <Project>{C898E990-54EB-40AC-9408-E416A838EC77}</Project>
-      <Name>V8.Net.MonoDevelop</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\v8dotnet\Source\V8.NET-ProxyInterface\V8.Net-ProxyInterface.MonoDevelop.csproj">
-      <Project>{355737A7-E486-4D4C-AA5B-DE432C23AEEE}</Project>
-      <Name>V8.Net-ProxyInterface.MonoDevelop</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\v8dotnet\Source\V8.Net-SharedTypes\V8.Net-SharedTypes.MonoDevelop.csproj">
-      <Project>{2155327D-386A-4F80-81FB-918A4442C834}</Project>
-      <Name>V8.Net-SharedTypes.MonoDevelop</Name>
-    </ProjectReference>
+    <Folder Include="V8Engine\" />
   </ItemGroup>
 </Project>
