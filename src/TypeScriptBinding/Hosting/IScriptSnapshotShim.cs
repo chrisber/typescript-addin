@@ -30,11 +30,12 @@ using System;
 
 namespace ICSharpCode.TypeScriptBinding.Hosting
 {
+
 	public interface IScriptSnapshotShim
 	{
 		string getText(int start, int end);
 		int getLength();
-		string getLineStartPositions();
-        string getChangeRange(int scriptVersion);
+  int[] getLineStartPositions();
+  TextChangeRange getChangeRange(IScriptSnapshotShim oldSnapshot);
 	}
 }
