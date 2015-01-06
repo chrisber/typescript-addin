@@ -1,4 +1,2 @@
-﻿
-ls.refresh(true);
-var items = ls.getCompletionEntryDetails(host.fileName, host.position, host.completionEntry);
-host.updateCompletionEntryDetailsAtCurrentPosition(items);
+﻿var items = ls.getCompletionEntryDetails(host.fileName, host.position, host.completionEntry);
+host.updateCompletionEntryDetailsAtCurrentPosition(JSON.stringify({result: items}));

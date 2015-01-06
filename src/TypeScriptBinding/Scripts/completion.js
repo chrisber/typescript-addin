@@ -1,2 +1,1 @@
-﻿var items = ls.getCompletionsAtPosition(host.fileName, host.position, host.isMemberCompletion);
-host.updateCompletionInfoAtCurrentPosition(items);
+﻿host.updateCompletionInfoAtCurrentPosition(JSON.stringify({result: ls.getCompletionsAtPosition(host.fileName, host.position, host.isMemberCompletion)}));

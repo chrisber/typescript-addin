@@ -1,4 +1,1 @@
-﻿
-ls.refresh(true);
-var references = ls.getReferencesAtPosition(host.fileName, host.position);
-host.updateReferencesAtPosition(references);
+﻿host.updateReferencesAtPosition(JSON.stringify({result: ls.getReferencesAtPosition(host.fileName, host.position)}));
