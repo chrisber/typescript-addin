@@ -163,10 +163,10 @@ namespace TypeScriptHosting
 		{
 
             LogDebug(structure.ToString());
-                LexicalStructure = JsonConvert.DeserializeObject<List<NavigationBarItem>>(structure);
+            LexicalStructure = JsonConvert.DeserializeObject<NavigationResult>(structure);
 		}
 		
-        internal List<NavigationBarItem>  LexicalStructure { get; private set; }
+        internal NavigationResult LexicalStructure { get; private set; }
 		
 		//public void updateOutliningRegions(string regions)
 		//{
