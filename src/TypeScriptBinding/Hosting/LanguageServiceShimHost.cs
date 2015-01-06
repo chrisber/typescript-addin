@@ -38,17 +38,34 @@ using V8.Net;
 
 namespace TypeScriptHosting
 {
+    /// <summary>
+    /// TODO: Idea Remove service (service.ts 869) functions from host.
+    /// 
+    /// getSyntacticDiagnostics(fileName: string): Diagnostic[];
+    /// getSemanticDiagnostics(fileName: string): Diagnostic[];
+    /// getCompilerOptionsDiagnostics(): Diagnostic[];
+    /// 
+    /// Use a Managed Javascript function (V8.Net.V8ManagedObject) implementations
+    /// for callbacks from the service to managed
+    /// RunMemberCompletionScript(){
+    ///  execute()
+    ///  return updateCompletionInfoAtCurrentPosition
+    /// }
+    /// this should speed up the process and seperate host from service
+    /// </summary>
     [ScriptObject("LanguageServiceShimHost", security: ScriptMemberSecurity.Permanent)]
 	public class LanguageServiceShimHost : ILanguageServiceShimHost
 	{
 		Dictionary<string, Script> scripts = new Dictionary<string, Script>();
 		ILogger logger;
 		string defaultLibScriptFileName;
-		CompilerSettings compilerSettings = new CompilerSettings();
+		CompilerOptions compilerSettings = new CompilerOptions();
 		
 		public LanguageServiceShimHost(ILogger logger)
 		{
 			this.logger = logger;
+            SemanticDiagnosticsResult = new SemanticDiagnosticsResult ();
+            SyntaticDiagnosticsResult = new SyntaticDiagnosticsResult ();
 		}
 		
 		internal void AddDefaultLibScript(FilePath fileName, string text)
@@ -57,12 +74,14 @@ namespace TypeScriptHosting
 			AddFile(fileName, text);
 		}
 		
-		internal void AddFile(FilePath fileName, string text)
+		internal bool AddFile(FilePath fileName, string text)
 		{
 			string lowercaseFileName = fileName.FullPath;
 			if (!scripts.ContainsKey(lowercaseFileName)) {
 				scripts.Add(lowercaseFileName, new Script(lowercaseFileName, text));
+                return true;
 			}
+            return false;
 		}
 		
         [ScriptMember (inScriptName: "FindScript", security: ScriptMemberSecurity.Permanent)]
@@ -93,11 +112,13 @@ namespace TypeScriptHosting
 
         internal CompletionResult CompletionResult { get; private set; }
 
+
         [ScriptMember (inScriptName: "updateCompletionInfoAtCurrentPosition", security: ScriptMemberSecurity.Permanent)]
 		public void updateCompletionInfoAtCurrentPosition(string completionInfo)
-		{
+        { 
 			LogDebug(completionInfo);
 			CompletionResult = JsonConvert.DeserializeObject<CompletionResult>(completionInfo);
+
 		}
 		
 		
@@ -140,11 +161,12 @@ namespace TypeScriptHosting
         [ScriptMember (inScriptName: "updateLexicalStructure", security: ScriptMemberSecurity.Permanent)]
 		public void updateLexicalStructure(string structure)
 		{
-			LogDebug(structure);
-			LexicalStructure = JsonConvert.DeserializeObject<NavigationResult>(structure);
+
+            LogDebug(structure.ToString());
+                LexicalStructure = JsonConvert.DeserializeObject<List<NavigationBarItem>>(structure);
 		}
 		
-		internal NavigationResult LexicalStructure { get; private set; }
+        internal List<NavigationBarItem>  LexicalStructure { get; private set; }
 		
 		//public void updateOutliningRegions(string regions)
 		//{
@@ -206,15 +228,15 @@ namespace TypeScriptHosting
 		}
 		
         [ScriptMember (inScriptName: "getCompilationSettings", security: ScriptMemberSecurity.Permanent)]
-		public string getCompilationSettings()
+        public CompilerOptions getCompilationSettings()
 		{
-			LogDebug("Host.getCompilationSettings");
-			return JsonConvert.SerializeObject(compilerSettings);
+            LogDebug("Host.getCompilationSettings " + JsonConvert.SerializeObject(compilerSettings));
+            return compilerSettings;
 		}
 		
 		internal void UpdateCompilerSettings(ITypeScriptOptions options)
 		{
-			compilerSettings = new CompilerSettings(options);
+			compilerSettings = new CompilerOptions(options);
 		}
 		
         [ScriptMember (inScriptName: "getScriptVersion", security: ScriptMemberSecurity.Permanent)]
@@ -333,13 +355,38 @@ namespace TypeScriptHosting
 		internal CompilerResult CompilerResult { get; private set; }
 		
         [ScriptMember (inScriptName: "updateSemanticDiagnosticsResult", security: ScriptMemberSecurity.Permanent)]
-		public void updateSemanticDiagnosticsResult(string result)
+		public void updateSemanticDiagnosticsResult(string json)
 		{
-			log(result);
-			SemanticDiagnosticsResult = JsonConvert.DeserializeObject<SemanticDiagnosticsResult>(result);
+
+			log(json);
+            try{
+                var result = JsonConvert.DeserializeObject<DiagnosticsResult>(json);
+                var semantic = result.semantic.Where(x => x != null).ToArray();
+                var syntactic = result.syntactic.Where(x => x != null).ToArray();
+                SemanticDiagnosticsResult.result = new Diagnostic[semantic.Length + syntactic.Length]; 
+                Array.Copy(semantic,SemanticDiagnosticsResult.result,semantic.Length);
+                Array.Copy(syntactic, 0, SemanticDiagnosticsResult.result, semantic.Length, syntactic.Length);
+
+            }catch(Exception ex){
+                MonoLog (ex.ToString());
+            }
+//            SemanticDiagnosticsResult.result = res;
+//            SemanticDiagnosticsResult = JsonConvert.DeserializeObject<SemanticDiagnosticsResult>(result);
 		}
-		
-		internal SemanticDiagnosticsResult SemanticDiagnosticsResult { get; private set; }
+
+        internal SemanticDiagnosticsResult SemanticDiagnosticsResult { get; private set; }
+
+
+
+        [ScriptMember (inScriptName: "updateSyntacticDiagnosticsResult", security: ScriptMemberSecurity.Permanent)]
+        public void updateSyntacticDiagnosticsResult(string result)
+        {
+            log(result);
+//            SyntaticDiagnosticsResult = JsonConvert.DeserializeObject<SyntaticDiagnosticsResult>(result);
+        }
+
+        internal SyntaticDiagnosticsResult SyntaticDiagnosticsResult { get; private set; }
+	
 
         [ScriptMember (inScriptName: "getCancellationToken", security: ScriptMemberSecurity.Permanent)]
         public bool getCancellationToken (){

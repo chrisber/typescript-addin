@@ -28,21 +28,22 @@
 
 using System;
 
+
 namespace ICSharpCode.TypeScriptBinding.Hosting
 {
-	public interface ILanguageServiceShimHost : ILogger
-	{
-		string getCompilationSettings();
-		string[] getScriptFileNames();
-		string getScriptVersion(string fileName);
-		bool getScriptIsOpen(string fileName);
-		ByteOrderMark getScriptByteOrderMark(string fileName);
-		IScriptSnapshotShim getScriptSnapshot(string fileName);
-		string resolveRelativePath(string path, string directory);
-		bool fileExists(string path);
-		bool directoryExists(string path);
-		string getParentDirectory(string path);
-		ILanguageServicesDiagnostics getDiagnosticsObject();
-		string getLocalizedDiagnosticMessages();
-	}
+    public interface ILanguageServiceShimHost : ILogger
+    {
+        CompilerOptions getCompilationSettings();
+        string[] getScriptFileNames();
+        string getScriptVersion(string fileName);
+        bool getScriptIsOpen(string fileName);
+        ByteOrderMark getScriptByteOrderMark(string fileName);
+        IScriptSnapshotShim getScriptSnapshot(string fileName);
+        string resolveRelativePath(string path, string directory);
+        bool fileExists(string path);
+        bool directoryExists(string path);
+        string getParentDirectory(string path);
+        ILanguageServicesDiagnostics getDiagnosticsObject();
+        string getLocalizedDiagnosticMessages();
+    }
 }
