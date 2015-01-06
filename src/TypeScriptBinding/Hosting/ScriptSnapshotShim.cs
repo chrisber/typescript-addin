@@ -57,32 +57,35 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 			return script.Source.Length;
 		}
 
-        [ScriptMember (inScriptName: "getLineStartPositions", security: ScriptMemberSecurity.Permanent)]
-		public string getLineStartPositions()
+  [ScriptMember (inScriptName: "getLineStartPositions", security: ScriptMemberSecurity.Permanent)]
+  public int[] getLineStartPositions()
 		{
 			Log("ScriptSnapshotShim.getLineStartPositions");
 			
-			int[] positions = script.GetLineStartPositions();
-			string json = JsonConvert.SerializeObject(positions);
+//			int[] positions = script.GetLineStartPositions();
+//			string json = JsonConvert.SerializeObject(positions);
 			
 			//Log("ScriptSnapshotShim.getLineStartPositions: {0}", json);
 			
-			return json;
+            return script.GetLineStartPositions();
 		}
-
-        [ScriptMember (inScriptName: "getChangeRange", security: ScriptMemberSecurity.Permanent)]
-        public string getChangeRange(int scriptVersion)
+  
+    /// <summary>
+    /// TODO: Fix this
+    /// </summary>
+  [ScriptMember (inScriptName: "getChangeRange", security: ScriptMemberSecurity.Permanent)]
+  public TextChangeRange getChangeRange(IScriptSnapshotShim oldSnapshot)
 		{
-            Log("ScriptSnapshotShim.getChangeRange: version={0}", scriptVersion);
-			if (script.Version == scriptVersion)
-				return null;
+//            Log("ScriptSnapshotShim.getChangeRange: version={0}", oldSnapshot);
+//            if (script. == oldSnapshot.)
+//				return null;
+//			
+//            TextChangeRange textChangeRange = script.GetTextChangeRangeSinceVersion(oldSnapshot);
+//			string json = JsonConvert.SerializeObject(textChangeRange);
+//			
+//			Log("ScriptSnapshotShim.getTextChangeRangeSinceVersion: json: {0}", json);
 			
-			TextChangeRange textChangeRange = script.GetTextChangeRangeSinceVersion(scriptVersion);
-			string json = JsonConvert.SerializeObject(textChangeRange);
-			
-			Log("ScriptSnapshotShim.getTextChangeRangeSinceVersion: json: {0}", json);
-			
-			return json;
+			return null;
 		}
 
         [ScriptMember (inScriptName: "Log", security: ScriptMemberSecurity.Permanent)]

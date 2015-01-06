@@ -33,9 +33,9 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 
 	public interface IScriptSnapshotShim
 	{
-		string getText(int start, int end);
-		int getLength();
-  int[] getLineStartPositions();
-  TextChangeRange getChangeRange(IScriptSnapshotShim oldSnapshot);
+        string getText(int start, int end);
+        int getLength();
+        int[] getLineStartPositions();
+        TextChangeRange getChangeRange(IScriptSnapshotShim oldSnapshot);
 	}
 }
