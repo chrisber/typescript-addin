@@ -45,6 +45,15 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <CustomCommands>
       <CustomCommands>
+        <Command type="Execute" command="/usr/lib/monodevelop/bin/MonoDevelop.exe" workingdir="/usr/lib/monodevelop/bin/" />
+      </CustomCommands>
+    </CustomCommands>
+    <Externalconsole>true</Externalconsole>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <CustomCommands>
+      <CustomCommands>
         <Command type="Execute" command="/usr/lib/monodevelop/bin/MonoDevelop.exe" workingdir="/usr/lib/monodevelop/bin/">
           <EnvironmentVariables>
             <Variable name="MONODEVELOP_DEV_ADDINS" value="${TargetDir}" />
@@ -52,8 +61,6 @@
         </Command>
       </CustomCommands>
     </CustomCommands>
-    <Externalconsole>true</Externalconsole>
-    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ICSharpCode.NRefactory">
@@ -98,12 +105,12 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="V8.Net">
-      <HintPath>..\..\lib\V8Engine\V8.Net.SharedTypes.dll</HintPath>
-    </Reference>
-    <Reference Include="V8">
       <HintPath>..\..\lib\V8Engine\V8.Net.dll</HintPath>
     </Reference>
-    <Reference Include="V8.Net.Proxy">
+    <Reference Include="V8.Net.SharedTypes">
+      <HintPath>..\..\lib\V8Engine\V8.Net.SharedTypes.dll</HintPath>
+    </Reference>
+    <Reference Include="V8.Net.Proxy.Interface">
       <HintPath>..\..\lib\V8Engine\V8.Net.Proxy.Interface.dll</HintPath>
     </Reference>
   </ItemGroup>
@@ -230,58 +237,54 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Scripts\compile.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Scripts\completion.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Scripts\completionDetails.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Scripts\definition.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Scripts\navigation.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Scripts\references.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Scripts\lib.d.ts">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Scripts\main.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Scripts\semanticDiagnostics.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Scripts\signature.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Scripts\tsc.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Scripts\TypeScript-License.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Scripts\typescriptServices.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Templates\TypeScript.EmptyFile.xft.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <EmbeddedResource Include="TypeScriptBinding.addin.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="gtk-gui\gui.stetic">
       <LogicalName>gui.stetic</LogicalName>
     </EmbeddedResource>
     <None Include="packages.config" />
-    <None Include="..\..\lib\V8Engine\linux.x64\libV8_Net_Proxy.so">
-      <Link>V8Engine\linux.x64\libV8_Net_Proxy.so</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="..\..\lib\V8Engine\linux.x64\libicui18n.so">
       <Link>V8Engine\linux.x64\libicui18n.so</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -298,5 +301,40 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="V8Engine\" />
+    <Folder Include="x64\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\lib\V8Engine\linux.x64\libV8_Net_Proxy.so">
+      <Link>V8Engine\linux.x64\libV8_Net_Proxy.so</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\lib\V8Engine\win.x64\x64\V8.Net.Proxy.Interface.x64.dll">
+      <Link>x64\V8.Net.Proxy.Interface.x64.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\lib\V8Engine\win.x64\x64\V8_Net_Proxy_x64.dll">
+      <Link>x64\V8_Net_Proxy_x64.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\lib\V8Engine\win.x64\x64\V8_Net_Proxy_x64.lib">
+      <Link>x64\V8_Net_Proxy_x64.lib</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\lib\V8Engine\win.x64\x64\msvcp110.dll">
+      <Link>x64\msvcp110.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\lib\V8Engine\win.x64\x64\msvcr110.dll">
+      <Link>x64\msvcr110.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\lib\V8Engine\win.x64\x64\v8-x64.dll">
+      <Link>x64\v8-x64.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\lib\V8Engine\win.x64\x64\vccorlib110.dll">
+      <Link>x64\vccorlib110.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>

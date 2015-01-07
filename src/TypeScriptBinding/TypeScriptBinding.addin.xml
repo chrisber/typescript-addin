@@ -1,34 +1,55 @@
 ﻿<Addin
-	name="TypeScript"
-	id="TypeScript"
+	name="TypeScript Language Binding"
+	id="Typescript"
 	namespace="MonoDevelop"
-	author="Matt Ward"
+	author="Matt Ward, Christian Karl Bernasko"
 	copyright="MIT"
 	url="https://github.com/mrward/typescript-addin"
 	description="Adds TypeScript support."
-	category="Web Development"
-	version="0.2">
+	category="Language bindings"
+	version="0.3">
 	
 	<Runtime>
+
 		<Import assembly="TypeScriptBinding.dll" />
 		<Import assembly="V8.Net.Proxy.Interface.dll" />
 		<Import assembly="V8.Net.SharedTypes.dll" />
 		<Import assembly="V8.Net.dll" />
 
+		<Import file="msvcp100.dll" />
+	   	<Import file="msvcr100.dll" />
+
+		<Import file="libicui18n.so" />
+		<Import file="libicuuc.so" />
+		<Import file="libV8_Net_Proxy.so" />
+		<Import file="libv8.so" />
+
+		<Import file="x64/msvcp110.dll"/>
+		<Import file="x64/msvcr110.dll"/>
+		<Import file="x64/V8.Net.Proxy.Interface.x64.dll"/>
+		<Import file="x64/V8_Net_Proxy_x64.dll"/>
+		<Import file="x64/V8_Net_Proxy_x64.lib"/>
+		<Import file="x64/v8-x64.dll"/>
+		<Import file="x64/vccorlib110.dll"/>
+
+
+
 		<Import file="Templates/TypeScript.EmptyFile.xft.xml"/>
 		
 		<Import file="Scripts/compile.js"/>
-		<Import file="Scripts/completion.js"/>
 		<Import file="Scripts/completionDetails.js"/>
+		<Import file="Scripts/completion.js"/>
 		<Import file="Scripts/definition.js"/>
 		<Import file="Scripts/lib.d.ts"/>
 		<Import file="Scripts/main.js"/>
 		<Import file="Scripts/navigation.js"/>
 		<Import file="Scripts/references.js"/>
+		<Import file="Scripts/semanticDiagnostics.js"/>
 		<Import file="Scripts/signature.js"/>
 		<Import file="Scripts/tsc.js"/>
 		<Import file="Scripts/TypeScript-License.txt"/>
 		<Import file="Scripts/typescriptServices.js"/>
+
 	</Runtime>
 	
 	<Dependencies>
