@@ -42,6 +42,11 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 
 	public class SemanticDiagnosticsResult
 	{
+        public SemanticDiagnosticsResult()
+        {
+            result = new Diagnostic[0];
+        }
+
         public Diagnostic[] result { get; set; }
 	}
 }

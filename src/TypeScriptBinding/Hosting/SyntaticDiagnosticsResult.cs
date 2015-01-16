@@ -41,6 +41,10 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 {
     public class SyntaticDiagnosticsResult
     {
+        public SyntaticDiagnosticsResult()
+        {
+            result = new Diagnostic[0];
+        }
         public Diagnostic[] result { get; set; }
     }
 }

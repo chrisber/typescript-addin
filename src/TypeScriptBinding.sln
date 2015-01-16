@@ -1,24 +1,83 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeScriptBinding", "TypeScriptBinding\TypeScriptBinding.csproj", "{94BBCA55-A20E-4782-93B0-3566D185F7C1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeScriptBinding.Tests", "TypeScriptBinding.Tests\TypeScriptBinding.Tests.csproj", "{6F22CECC-2ABA-4D5D-A3F8-1C4F4A46C915}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "V8.Net-SharedTypes", "..\..\..\Users\vmChrisber\nocompile\v8dotnet\Source\V8.Net-SharedTypes\V8.Net-SharedTypes.csproj", "{EF90724B-3893-4ACF-BFEE-88532485B11A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "V8.Net-ProxyInterface", "..\..\..\Users\vmChrisber\nocompile\v8dotnet\Source\V8.NET-ProxyInterface\V8.Net-ProxyInterface.csproj", "{81752B54-1391-44CB-A1F5-ECCF7279DB71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "V8.Net", "..\..\..\Users\vmChrisber\nocompile\v8dotnet\Source\V8.Net\V8.Net.csproj", "{8D612C41-7D95-499C-A82D-C5C3C82225B3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6F22CECC-2ABA-4D5D-A3F8-1C4F4A46C915}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6F22CECC-2ABA-4D5D-A3F8-1C4F4A46C915}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6F22CECC-2ABA-4D5D-A3F8-1C4F4A46C915}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6F22CECC-2ABA-4D5D-A3F8-1C4F4A46C915}.Release|Any CPU.Build.0 = Release|Any CPU
 		{94BBCA55-A20E-4782-93B0-3566D185F7C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{94BBCA55-A20E-4782-93B0-3566D185F7C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94BBCA55-A20E-4782-93B0-3566D185F7C1}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{94BBCA55-A20E-4782-93B0-3566D185F7C1}.Debug|x86.ActiveCfg = Debug|x86
+		{94BBCA55-A20E-4782-93B0-3566D185F7C1}.Debug|x86.Build.0 = Debug|x86
 		{94BBCA55-A20E-4782-93B0-3566D185F7C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94BBCA55-A20E-4782-93B0-3566D185F7C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94BBCA55-A20E-4782-93B0-3566D185F7C1}.Release|x64.ActiveCfg = Release|Any CPU
+		{94BBCA55-A20E-4782-93B0-3566D185F7C1}.Release|x86.ActiveCfg = Release|x86
+		{94BBCA55-A20E-4782-93B0-3566D185F7C1}.Release|x86.Build.0 = Release|x86
+		{6F22CECC-2ABA-4D5D-A3F8-1C4F4A46C915}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F22CECC-2ABA-4D5D-A3F8-1C4F4A46C915}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F22CECC-2ABA-4D5D-A3F8-1C4F4A46C915}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6F22CECC-2ABA-4D5D-A3F8-1C4F4A46C915}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6F22CECC-2ABA-4D5D-A3F8-1C4F4A46C915}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F22CECC-2ABA-4D5D-A3F8-1C4F4A46C915}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F22CECC-2ABA-4D5D-A3F8-1C4F4A46C915}.Release|x64.ActiveCfg = Release|Any CPU
+		{6F22CECC-2ABA-4D5D-A3F8-1C4F4A46C915}.Release|x86.ActiveCfg = Release|Any CPU
+		{EF90724B-3893-4ACF-BFEE-88532485B11A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF90724B-3893-4ACF-BFEE-88532485B11A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF90724B-3893-4ACF-BFEE-88532485B11A}.Debug|x64.ActiveCfg = Debug|x64
+		{EF90724B-3893-4ACF-BFEE-88532485B11A}.Debug|x64.Build.0 = Debug|x64
+		{EF90724B-3893-4ACF-BFEE-88532485B11A}.Debug|x86.ActiveCfg = Debug|x86
+		{EF90724B-3893-4ACF-BFEE-88532485B11A}.Debug|x86.Build.0 = Debug|x86
+		{EF90724B-3893-4ACF-BFEE-88532485B11A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF90724B-3893-4ACF-BFEE-88532485B11A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF90724B-3893-4ACF-BFEE-88532485B11A}.Release|x64.ActiveCfg = Release|x64
+		{EF90724B-3893-4ACF-BFEE-88532485B11A}.Release|x64.Build.0 = Release|x64
+		{EF90724B-3893-4ACF-BFEE-88532485B11A}.Release|x86.ActiveCfg = Release|x86
+		{EF90724B-3893-4ACF-BFEE-88532485B11A}.Release|x86.Build.0 = Release|x86
+		{81752B54-1391-44CB-A1F5-ECCF7279DB71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81752B54-1391-44CB-A1F5-ECCF7279DB71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81752B54-1391-44CB-A1F5-ECCF7279DB71}.Debug|x64.ActiveCfg = Debug|x64
+		{81752B54-1391-44CB-A1F5-ECCF7279DB71}.Debug|x64.Build.0 = Debug|x64
+		{81752B54-1391-44CB-A1F5-ECCF7279DB71}.Debug|x86.ActiveCfg = Debug|x86
+		{81752B54-1391-44CB-A1F5-ECCF7279DB71}.Debug|x86.Build.0 = Debug|x86
+		{81752B54-1391-44CB-A1F5-ECCF7279DB71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81752B54-1391-44CB-A1F5-ECCF7279DB71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81752B54-1391-44CB-A1F5-ECCF7279DB71}.Release|x64.ActiveCfg = Release|x64
+		{81752B54-1391-44CB-A1F5-ECCF7279DB71}.Release|x64.Build.0 = Release|x64
+		{81752B54-1391-44CB-A1F5-ECCF7279DB71}.Release|x86.ActiveCfg = Release|x86
+		{81752B54-1391-44CB-A1F5-ECCF7279DB71}.Release|x86.Build.0 = Release|x86
+		{8D612C41-7D95-499C-A82D-C5C3C82225B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D612C41-7D95-499C-A82D-C5C3C82225B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D612C41-7D95-499C-A82D-C5C3C82225B3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8D612C41-7D95-499C-A82D-C5C3C82225B3}.Debug|x86.ActiveCfg = Debug|x86
+		{8D612C41-7D95-499C-A82D-C5C3C82225B3}.Debug|x86.Build.0 = Debug|x86
+		{8D612C41-7D95-499C-A82D-C5C3C82225B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D612C41-7D95-499C-A82D-C5C3C82225B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D612C41-7D95-499C-A82D-C5C3C82225B3}.Release|x64.ActiveCfg = Release|Any CPU
+		{8D612C41-7D95-499C-A82D-C5C3C82225B3}.Release|x86.ActiveCfg = Release|x86
+		{8D612C41-7D95-499C-A82D-C5C3C82225B3}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = TypeScriptBinding\TypeScriptBinding.csproj

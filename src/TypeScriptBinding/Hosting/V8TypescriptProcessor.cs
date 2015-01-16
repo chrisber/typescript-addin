@@ -47,6 +47,9 @@ namespace ICSharpCode.TypeScriptBinding
                 v8Engine.RegisterType<LanguageServiceShimHost>(null, recursive: true);
                 v8Engine.GlobalObject.SetProperty("host", v8Host);
 
+
+                Handle tresult = v8Engine.Execute("var a = 5;  a", "My V8.NET Console");
+                string test = tresult.ToString();
                 serviceScriptHandle = v8Engine.Compile(_scriptLoader.GetTypeScriptServicesScript(),"Monodevelop.ScriptServicesScript");
                 mainScriptHandle = v8Engine.Compile(_scriptLoader.GetMainScript(),"Monodevelop.MainScript");
                 memberCompletionScriptHandle = v8Engine.Compile(_scriptLoader.GetMemberCompletionScript(),"Monodevelop.MemberCompletionScript");
@@ -83,8 +86,15 @@ namespace ICSharpCode.TypeScriptBinding
         }
 
         public static void RunCompletionDetailsScript(){
-            var result = v8Engine.Execute (completionDetailsScriptHandle);
-            log (result);
+            try
+            {
+                var result = v8Engine.Execute(completionDetailsScriptHandle);
+                log(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.ToString());
+            }
         }
 
         public static void RunFunctionSignatureScript(){

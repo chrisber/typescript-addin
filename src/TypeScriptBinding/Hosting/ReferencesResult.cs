@@ -32,6 +32,11 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 {
 	public class ReferencesResult
 	{
+        public ReferencesResult()
+        {
+            result = new ReferenceEntry[0];
+        }
+
 		public ReferenceEntry[] result { get; set; }
 	}
 }

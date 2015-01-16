@@ -32,6 +32,10 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 {
 	public class CompletionEntryDetailsResult
 	{
+        public CompletionEntryDetailsResult()
+        {
+            result = new CompletionEntryDetails();
+        }
 		public CompletionEntryDetails result { get; set; }
 	}
 }
