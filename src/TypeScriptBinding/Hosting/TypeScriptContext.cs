@@ -84,14 +84,15 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 		}
 		
 		public CompletionInfo GetCompletionItems(FilePath fileName, int offset, string text, bool memberCompletion)
-		{
-            V8TypescriptProcessor.host().position = offset;
-			V8TypescriptProcessor.host().UpdateFileName(fileName);
-			V8TypescriptProcessor.host().isMemberCompletion = memberCompletion;
-			
-            V8TypescriptProcessor.RunMemberCompletionScript();
-			
-			return V8TypescriptProcessor.host().CompletionResult.result;
+        {
+
+                V8TypescriptProcessor.host().position = offset;
+                V8TypescriptProcessor.host().UpdateFileName(fileName);
+                V8TypescriptProcessor.host().isMemberCompletion = memberCompletion;
+
+                V8TypescriptProcessor.RunMemberCompletionScript();
+
+                return V8TypescriptProcessor.host().CompletionResult.result;
 		}
 		
 		public CompletionEntryDetails GetCompletionEntryDetails(FilePath fileName, int offset, string entryName)

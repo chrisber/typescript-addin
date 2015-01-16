@@ -66,7 +66,8 @@ namespace TypeScriptHosting
 			this.logger = logger;
             SemanticDiagnosticsResult = new SemanticDiagnosticsResult ();
             SyntaticDiagnosticsResult = new SyntaticDiagnosticsResult ();
-		}
+            CompletionResult = new CompletionResult();
+  		}
 		
 		internal void AddDefaultLibScript(FilePath fileName, string text)
 		{
@@ -110,7 +111,7 @@ namespace TypeScriptHosting
 		public string completionEntry { get; set; }
 		
 
-        internal CompletionResult CompletionResult { get; private set; }
+        internal CompletionResult CompletionResult { get;  set; }
 
 
         [ScriptMember (inScriptName: "updateCompletionInfoAtCurrentPosition", security: ScriptMemberSecurity.Permanent)]
@@ -129,7 +130,7 @@ namespace TypeScriptHosting
 			CompletionEntryDetailsResult = JsonConvert.DeserializeObject<CompletionEntryDetailsResult>(completionEntryDetails);
 		}
 		
-		internal CompletionEntryDetailsResult CompletionEntryDetailsResult { get; private set; }
+		internal CompletionEntryDetailsResult CompletionEntryDetailsResult { get;  set; }
 		
         [ScriptMember (inScriptName: "updateSignatureAtPosition", security: ScriptMemberSecurity.Permanent)]
 		public void updateSignatureAtPosition(string signature)
