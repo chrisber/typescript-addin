@@ -1,10 +1,10 @@
 ﻿// 
-// ILanguageServicesDiagnostics.cs
+// ScriptTarget.cs
 // 
 // Author:
 //   Matt Ward <ward.matt@gmail.com>
 // 
-// Copyright (C) 2013 Matthew Ward
+// Copyright (C) 2014 Matthew Ward
 // 
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -30,8 +30,11 @@ using System;
 
 namespace ICSharpCode.TypeScriptBinding.Hosting
 {
-	public interface ILanguageServicesDiagnostics
+	public enum ScriptTarget
 	{
-		void log(string content);
+		ES3 = 0,
+		ES5 = 1,
+		ES6 = 2,
+		Latest = ES6,
 	}
 }

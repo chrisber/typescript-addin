@@ -1,10 +1,10 @@
 ﻿// 
-// StandardOutputTextWriter.cs
+// ModuleKind.cs
 // 
 // Author:
 //   Matt Ward <ward.matt@gmail.com>
 // 
-// Copyright (C) 2013 Matthew Ward
+// Copyright (C) 2014 Matthew Ward
 // 
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -27,29 +27,13 @@
 //
 
 using System;
-using ICSharpCode.SharpDevelop;
-using ICSharpCode.SharpDevelop.Gui;
 
 namespace ICSharpCode.TypeScriptBinding.Hosting
 {
-	public class StandardOutputTextWriter : ITextWriter
+	public enum ModuleKind
 	{
-		public void Write(string s)
-		{
-			BuildMessageView.AppendText(s);
-		}
-		
-		MessageViewCategory BuildMessageView {
-			get { return TaskService.BuildMessageViewCategory; }
-		}
-		
-		public void WriteLine(string s)
-		{
-			BuildMessageView.AppendLine(s);
-		}
-		
-		public void Close()
-		{
-		}
+		None = 0,
+		CommonJS = 1,
+		AMD = 2,
 	}
 }

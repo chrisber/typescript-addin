@@ -90,7 +90,7 @@ namespace ICSharpCode.TypeScriptBinding
 					context.AddFile(file, fileContent.Text);
 					context.RunInitialisationScript();
 					
-					NavigateToItem[] navigation = context.GetLexicalStructure(file);
+					NavigationBarItem[] navigation = context.GetNavigationInfo(file);
 					var unit = new TypeScriptCompilationUnit(projectContent) {
 						FileName = fileName
 					};
@@ -100,7 +100,7 @@ namespace ICSharpCode.TypeScriptBinding
 					if (typeScriptProjectContent != null) {
 						context.AddFiles(files);
 						IDocument document = DocumentUtilitites.LoadReadOnlyDocumentFromBuffer(fileContent);
-						Diagnostic[] diagnostics = context.GetSemanticDiagnostics(file, typeScriptProjectContent.Options);
+						Diagnostic[] diagnostics = context.GetDiagnostics(file, typeScriptProjectContent.Options);
 						TypeScriptService.TaskService.Update(diagnostics, file, document);
 					}
 					

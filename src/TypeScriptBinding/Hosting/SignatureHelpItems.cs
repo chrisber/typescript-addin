@@ -1,10 +1,10 @@
 ﻿// 
-// TextSpanInfo.cs
+// SignatureHelpItems.cs
 // 
 // Author:
 //   Matt Ward <ward.matt@gmail.com>
 // 
-// Copyright (C) 2013 Matthew Ward
+// Copyright (C) 2013-2015 Matthew Ward
 // 
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -30,9 +30,17 @@ using System;
 
 namespace ICSharpCode.TypeScriptBinding.Hosting
 {
-	public class TextSpanInfo
+	public class SignatureHelpItems
 	{
-		public int _start { get; set; }
-		public int _end { get; set; }
+		public SignatureHelpItems()
+		{
+			this.items = new SignatureHelpItem[0];
+		}
+		
+		public SignatureHelpItem[] items { get; set; }
+		public TextSpan applicableSpan { get; set; }
+		public int selectedItemIndex { get; set; }
+		public int argumentIndex { get; set; }
+		public int argumentCount { get; set; }
 	}
 }

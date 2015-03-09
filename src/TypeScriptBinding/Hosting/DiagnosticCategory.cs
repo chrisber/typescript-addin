@@ -1,5 +1,5 @@
 ﻿// 
-// LanguageVersion.cs
+// DiagnosticCategory.cs
 // 
 // Author:
 //   Matt Ward <ward.matt@gmail.com>
@@ -30,9 +30,10 @@ using System;
 
 namespace ICSharpCode.TypeScriptBinding.Hosting
 {
-	public enum LanguageVersion
+	public enum DiagnosticCategory
 	{
-		EcmaScript3 = 0,
-		EcmaScript5 = 1,
+		Warning,
+		Error,
+		Message,
 	}
 }
