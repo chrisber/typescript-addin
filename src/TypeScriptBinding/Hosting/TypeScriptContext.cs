@@ -131,9 +131,9 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
             //          context.Dispose();
         }
 
-        public void AddFile(FilePath fileName, string text)
+        public bool AddFile(FilePath fileName, string text)
         {
-            host.AddFile(fileName, text);
+            return host.AddFile(fileName, text);
         }
 
 

@@ -61,11 +61,13 @@ namespace TypeScriptHosting
 			AddFile(fileName, text);
 		}
 		
-		internal void AddFile(FilePath fileName, string text)
+		internal bool AddFile(FilePath fileName, string text)
 		{
 			if (!scripts.ContainsKey(fileName.FullPath)) {
 				scripts.Add(fileName, new Script(fileName, text));
+				return true;
 			}
+			return false;
 		}
 		
 		Script FindScript(FilePath fileName)

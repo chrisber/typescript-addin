@@ -75,7 +75,10 @@ namespace ICSharpCode.TypeScriptBinding
 			try {
 				using (TypeScriptContext context = contextFactory.CreateContext()) {
 					var file = new FilePath(fileName);
-					context.AddFile(file, content);
+
+					if(!context.AddFile(file, content)){
+						context.UpdateFile(file,content);
+					}
 					
 					NavigationBarItem[] navigation = context.GetNavigationInfo(file);
 					var document = new ReadOnlyDocument(content);
