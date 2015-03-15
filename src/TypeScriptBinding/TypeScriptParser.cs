@@ -94,7 +94,6 @@ namespace ICSharpCode.TypeScriptBinding
 				}
 			} catch (Exception ex) {
 				Console.WriteLine(ex.ToString());
-				System.Diagnostics.Debugger.Log(0, null, ex.ToString() + Environment.NewLine);
 				LoggingService.LogDebug(ex.ToString());
 			}
 			return new TypeScriptParsedDocument(fileName);
