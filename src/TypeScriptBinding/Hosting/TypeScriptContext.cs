@@ -126,7 +126,7 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 
 		public void Dispose()
 		{
-			//context._dispose();
+			context._dispose();
 		}
 
         #endregion
