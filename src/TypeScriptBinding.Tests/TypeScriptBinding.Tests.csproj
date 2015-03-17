@@ -7,7 +7,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>TypeScriptBinding.Tests</RootNamespace>
     <AssemblyName>TypeScriptBinding.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <NoWin32Manifest>False</NoWin32Manifest>
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
@@ -66,6 +66,13 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Xml" />
+    <Reference Include="FluentAssertions.Core">
+      <HintPath>..\packages\FluentAssertions.3.3.0\lib\net45\FluentAssertions.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentAssertions">
+      <HintPath>..\packages\FluentAssertions.3.3.0\lib\net45\FluentAssertions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Parsing\FakeTypeScriptContextFactory.cs" />
@@ -73,11 +80,19 @@
     <Compile Include="Parsing\ParseTests.cs" />
     <Compile Include="Parsing\ParseTestScriptLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Complition\ComplitionTestScriptLoader.cs" />
+    <Compile Include="Complition\ComplitionTest.cs" />
+    <Compile Include="Complition\FakeTypeScriptContextFactory.cs" />
+    <Compile Include="Complition\ComplitionClassTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TypeScriptBinding\TypeScriptBinding.csproj">
       <Project>{94BBCA55-A20E-4782-93B0-3566D185F7C1}</Project>
       <Name>TypeScriptBinding</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CSharpTypeScriptLanguageService\TypeScriptLanguageService\TypeScriptLanguageService.csproj">
+      <Project>{124CE5EA-0E3B-4C66-A880-6A4062D5784A}</Project>
+      <Name>TypeScriptLanguageService</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -85,18 +100,17 @@
       <Link>Resources\lib.d.ts</Link>
       <LogicalName>lib.d.ts</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\TypeScriptBinding\Scripts\main.js">
-      <Link>Resources\main.js</Link>
-      <LogicalName>main.js</LogicalName>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\TypeScriptBinding\Scripts\navigation.js">
-      <Link>Resources\navigation.js</Link>
-      <LogicalName>navigation.js</LogicalName>
-    </EmbeddedResource>
     <EmbeddedResource Include="..\TypeScriptBinding\Scripts\typescriptServices.js">
       <Link>Resources\typescriptServices.js</Link>
       <LogicalName>typescriptServices.js</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Complition\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Complition\complition.ts" />
+  </ItemGroup>
 </Project>

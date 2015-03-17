@@ -58,7 +58,6 @@ namespace TypeScriptHosting
 		internal void AddDefaultLibScript(FilePath fileName, string text)
 		{
 			defaultLibScriptFileName = fileName;
-			AddFile(fileName, text);
 		}
 		
 		internal bool AddFile(FilePath fileName, string text)
