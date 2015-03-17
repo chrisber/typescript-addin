@@ -64,23 +64,25 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 		
 		public int[] GetLineStartPositions()
 		{
-			//TODO Where do we need this? 
-//			if (lineStartPositions.Count == 0) {
-//				string[] lines;
-//				if(Environment.NewLine == "\n"){
-//					lines = Source.Split('\n');
-//				}else{
-//					lines = Source.Split('\r');
-//				}
-//				 
-//				lineStartPositions.Add(0);
-//				int position = 0;
-//				for (int i = 0; i < lines.Length; ++i) {
-//					position += lines[i].Length + 2;
-//					lineStartPositions.Add(position);
-//				}
-//			}
-			
+				lineStartPositions.Clear();
+				string[] lines;
+				if(Environment.NewLine == "\n"){
+					lines = Source.Split('\n');
+				}else{
+					lines = Source.Split('\r');
+				}
+				 
+				lineStartPositions.Add(0);
+				int position = 0;
+				for (int i = 0; i < lines.Length; ++i) {
+					if(Environment.NewLine == "\n"){
+						position += lines[i].Length + 1;
+					}else{
+						position += lines[i].Length + 2;
+					}
+					lineStartPositions.Add(position);
+				}
+
 			return lineStartPositions.ToArray();
 		}
 		

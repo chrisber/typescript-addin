@@ -52,7 +52,7 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 			this.host = new LanguageServiceHost(logger);
 			this.context = new TypeScriptLanguageServices(host,scriptLoader.GetTypeScriptServicesScript());
 
-            host.AddDefaultLibScript(new FilePath(scriptLoader.LibScriptFileName), scriptLoader.GetLibScript());
+//            host.AddDefaultLibScript(new FilePath(scriptLoader.LibScriptFileName), scriptLoader.GetLibScript());
 		}
 		
         #region TypeScriptLanguageService calls
