@@ -20,7 +20,9 @@ namespace ICSharpCode.TypeScriptBinding
         internal int minChar {
             get {
                 if (HasSpans) {
-                    return navItem.spans[0].start;
+                    // TODO not sure if this is becouse of line endings crlf to lf
+                    // needs to be tested on windows
+                    return navItem.spans[0].start + 1;
                 }
                 return 0;
             }
@@ -44,7 +46,9 @@ namespace ICSharpCode.TypeScriptBinding
         {
             int startOffset = GetOpeningCurlyBraceOffsetForRegion(document);
             TextLocation start = document.GetLocation(startOffset);
-            TextLocation end = document.GetLocation(limChar-1);
+            // TODO not sure if this is becouse of line endings crlf to lf
+            // needs to be tested on windows
+            TextLocation end = document.GetLocation(limChar);
             return new DomRegion(start, end);
         }
 
