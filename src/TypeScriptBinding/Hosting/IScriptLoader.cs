@@ -33,7 +33,6 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 	public interface IScriptLoader
 	{
 		string RootFolder { get; }
-		string TypeScriptCompilerFileName { get; }
 		string LibScriptFileName { get; }
 		
 		string GetTypeScriptServicesScript();

@@ -35,17 +35,8 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 	{
 		string root;
 		string typeScriptServicesFileName;
-		string mainScriptFileName;
-		string memberCompletionScriptFileName;
-		string typeScriptCompilerFileName;
-		string signatureScriptFileName;
 		string libScriptFileName;
-		string findReferencesScriptFileName;
-		string definitionScriptFileName;
-		string navigationScriptFileName;
-		string completionDetailsScriptFileName;
-		string languageServicesCompileScriptFileName;
-		string diagnosticsScriptFileName;
+
 		
 		public ScriptLoader()
 		{
@@ -54,28 +45,12 @@ namespace ICSharpCode.TypeScriptBinding.Hosting
 			root = Path.GetFullPath(root);
 			
 			typeScriptServicesFileName = GetFullPath("typescriptServices.js");
-			mainScriptFileName = GetFullPath("main.js");
-			
-			memberCompletionScriptFileName = GetFullPath("completion.js");
-			signatureScriptFileName = GetFullPath("signature.js");
-			findReferencesScriptFileName = GetFullPath("references.js");
-			definitionScriptFileName = GetFullPath("definition.js");
-			navigationScriptFileName = GetFullPath("navigation.js");
-			completionDetailsScriptFileName = GetFullPath("completionDetails.js");
-			
-			languageServicesCompileScriptFileName = GetFullPath("compile.js");
-			diagnosticsScriptFileName = GetFullPath("diagnostics.js");
-			
-			typeScriptCompilerFileName = GetFullPath("tsc.js");
 			libScriptFileName = GetFullPath("lib.d.ts");
+
 		}
 		
 		public string RootFolder {
 			get { return root; }
-		}
-		
-		public string TypeScriptCompilerFileName {
-			get { return typeScriptCompilerFileName; }
 		}
 		
 		public string LibScriptFileName {
