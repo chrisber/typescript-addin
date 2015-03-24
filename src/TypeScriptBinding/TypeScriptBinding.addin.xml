@@ -26,9 +26,6 @@
 
     <Import file="libV8_Net_Proxy.so"/>
 
-    <Import file="Templates/TypeScript.EmptyFile.xft.xml"/>
-
-
     <Import file="Scripts/lib.d.ts"/>
     <Import file="Scripts/TypeScript-License.txt"/>
     <Import file="Scripts/typescriptServices.js"/>
@@ -48,13 +45,32 @@
     <Class class="ICSharpCode.TypeScriptBinding.RegisterTypeScriptCompileOnSaveFileStartupHandler"/>
   </Extension>
 
-  <Extension path="/MonoDevelop/Ide/FileTemplates">
-    <FileTemplate
-                        id="TypeScript-Empty"
-                        file="Templates/TypeScript.EmptyFile.xft.xml"/>
+
+  <Extension path="/MonoDevelop/Core/StockIcons">
+    <StockIcon stockid="md-typescript-file-empty" resource="ICSharpCode.TypeScriptBinding.Resources.TypeScript.Template.EmptyFile.png" />
+    <StockIcon stockid="md-typescript-file-browser" resource="ICSharpCode.TypeScriptBinding.Resources.TypeScript.ProjectBrowser.File.png" />
   </Extension>
 
-  <Extension path="/MonoDevelop/Ide/TextEditorExtensions">
+  <Extension path="/MonoDevelop/Core/MimeTypes">
+    <MimeType id="text/x-typescript" _description="Typescript template" icon="md-typescript-file-browser" isText="true">
+      <File pattern="*.ts,*.d.ts" />
+    </MimeType>
+  </Extension>
+
+  <Extension path="/MonoDevelop/Ide/FileFilters">
+    <FileFilter id="Typescript" insertbefore="AllFiles" _label="Typescript Source Files" extensions="*.ts" />
+  </Extension>
+
+  <Extension path="/MonoDevelop/Ide/FileTemplates">
+    <FileTemplate id="EmptyTypeScriptFile" icon="md-typescript-file" resource="ICSharpCode.TypeScriptBinding.Templates.TypeScript.EmptyFile.xft.xml"/>
+  </Extension>
+
+<Extension path = "/MonoDevelop/Ide/ProjectTemplates">
+	<ProjectTemplate id = "TypeScriptHTMLApp" resource = "ICSharpCode.TypeScriptBinding.Templates.TypescriptProject.xpt.xml"/>
+</Extension>
+
+
+    <Extension path="/MonoDevelop/Ide/TextEditorExtensions">
     <Class
                         fileExtensions=".ts"
                         class="ICSharpCode.TypeScriptBinding.TypeScriptCodeCompletionTextEditorExtension" />
@@ -105,17 +121,17 @@
                         class="ICSharpCode.TypeScriptBinding.TypeScriptProjectOptionsPanel"/>
   </Extension>
 
-  <Extension name="/MonoDevelop/ProjectModel/LanguageBindings">
-    <LanguageBinding
-                        id="TypeScript"
-                        class="ICSharpCode.TypeScriptBinding.TypeScriptLanguageBinding"
-                        supportedextensions=".ts"/>
-  </Extension>
+  	<Extension path = "/MonoDevelop/ProjectModel/LanguageBindings">
+		<LanguageBinding id    = "TypeScript"
+		                 supportedextensions = ".ts"
+		                 class = "ICSharpCode.TypeScriptBinding.TypeScriptLanguageBinding" />
+	</Extension>
+		                 
 
   <Extension path="/MonoDevelop/TypeSystem/Parser">
     <Parser
                         id="TypeScriptParser"
                         class="ICSharpCode.TypeScriptBinding.TypeScriptParser"
-                        mimeType="text/typescript, application/typescript"/>
+                        mimeType="text/x-typescript, application/x-csproject"/>
   </Extension>
 </Addin>

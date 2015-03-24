@@ -43,17 +43,15 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-<CustomCommands>
-  <CustomCommands>
-    <Command type="Execute"
-      command="/usr/lib/monodevelop/bin/MonoDevelop.exe"
-      workingdir="/usr/lib/monodevelop/bin/">
-      <EnvironmentVariables>
-        <Variable name="MONODEVELOP_DEV_ADDINS" value="${TargetDir}" />
-      </EnvironmentVariables>
-    </Command>
-  </CustomCommands>
-</CustomCommands>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="Execute" command="/usr/lib/monodevelop/bin/MonoDevelop.exe" workingdir="/usr/lib/monodevelop/bin/">
+          <EnvironmentVariables>
+            <Variable name="MONODEVELOP_DEV_ADDINS" value="${TargetDir}" />
+          </EnvironmentVariables>
+        </Command>
+      </CustomCommands>
+    </CustomCommands>
     <Externalconsole>true</Externalconsole>
   </PropertyGroup>
   <ItemGroup>
@@ -190,19 +188,32 @@
     <None Include="Scripts\typescriptServices.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\TypeScript.EmptyFile.xft.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <EmbeddedResource Include="TypeScriptBinding.addin.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="gtk-gui\gui.stetic">
       <LogicalName>gui.stetic</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TypeScript.ProjectBrowser.File.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TypeScript.Template.EmptyFile.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TypeScript.xshd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Templates\TypescriptProject.xpt.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Templates\TypeScript.EmptyFile.xft.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="TypeScriptLanguageService\" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CSharpTypeScriptLanguageService\TypeScriptLanguageService\TypeScriptLanguageService.csproj">
