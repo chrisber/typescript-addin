@@ -40,7 +40,7 @@ using TypeScriptLanguageService;
 
 namespace TypeScriptHosting
 {
-    public class LanguageServiceHost : ILanguageServiceHost
+	public class LanguageServiceHost : ILanguageServiceHost
 	{
 		Dictionary<string, Script> scripts = new Dictionary<string, Script>(StringComparer.OrdinalIgnoreCase);
 
@@ -48,18 +48,18 @@ namespace TypeScriptHosting
 
 		string defaultLibScriptFileName;
 
-        TypeScriptOptions compilerSettings = new TypeScriptOptions();
-		
+		TypeScriptOptions compilerSettings = new TypeScriptOptions();
+
 		public LanguageServiceHost(ILogger logger)
 		{
 			this.logger = logger;
 		}
-		
+
 		internal void AddDefaultLibScript(FilePath fileName, string text)
 		{
 			defaultLibScriptFileName = fileName;
 		}
-		
+
 		internal bool AddFile(FilePath fileName, string text)
 		{
 			if (!scripts.ContainsKey(fileName.FullPath)) {
@@ -68,7 +68,7 @@ namespace TypeScriptHosting
 			}
 			return false;
 		}
-		
+
 		Script FindScript(FilePath fileName)
 		{
 			Script script = null;
@@ -77,137 +77,150 @@ namespace TypeScriptHosting
 			}
 			return null;
 		}
-		
+
 		internal void UpdateFile(FilePath fileName, string text)
 		{
 			scripts[fileName.FullPath].Update(text);
 		}
-		
+
 		public int position { get; set; }
+
 		public string fileName { get; set; }
+
 		public bool isMemberCompletion { get; set; }
+
 		public string completionEntry { get; set; }
-		
+
 		public bool information()
 		{
 			return logger.information();
 		}
-		
+
 		public bool debug()
 		{
 			return logger.debug();
 		}
-		
+
 		public bool warning()
 		{
 			return logger.warning();
 		}
-		
+
 		public bool error()
 		{
 			return logger.error();
 		}
-		
+
 		public bool fatal()
 		{
 			return logger.fatal();
 		}
-		
+
 		void LogDebug(string format, params object[] args)
 		{
 			LogDebug(String.Format(format, args));
 		}
-		
+
 		void LogDebug(string s)
 		{
 			if (debug()) {
 				log(s);
 			}
 		}
-		
+
 		internal void UpdateCompilerSettings(ICompilerOptions options)
-        {//@ Todo checkout compiler options becous it has no consturctors
-            compilerSettings = new TypeScriptOptions(options);
+		{//@ Todo checkout compiler options becous it has no consturctors
+			compilerSettings = new TypeScriptOptions(options);
 		}
-		
+
 		internal void UpdateFileName(FilePath fileName)
 		{
 			this.fileName = fileName;
 		}
-		
+
 		internal void RemoveFile(FilePath fileName)
 		{
 			scripts.Remove(fileName);
 		}
-		
+
 		internal IEnumerable<string> GetFileNames()
 		{
 			return scripts.Keys.AsEnumerable();
 		}
-		
-        #region ILanguageServiceHost
+
+		#region ILanguageServiceHost
 
 
-        public ICompilerOptions getCompilationSettings()
-        {
-            return this.compilerSettings;
-        }
-        public string getNewLine()
-        {
-            return Environment.NewLine;
-        }
-        public string[] getScriptFileNames()
-        {
-            return scripts.Select(keyPair => keyPair.Value.FileName).ToArray();
-        }
-        public string getScriptVersion(string fileName)
-        {            
+		public ICompilerOptions getCompilationSettings()
+		{
+			return this.compilerSettings;
+		}
+
+		public string getNewLine()
+		{
+			return Environment.NewLine;
+		}
+
+		public string[] getScriptFileNames()
+		{
+			return scripts.Select(keyPair => keyPair.Value.FileName).ToArray();
+		}
+
+		public string getScriptVersion(string fileName)
+		{            
 			Script script;
-			if(this.scripts.TryGetValue(fileName, out script)){
+			if (this.scripts.TryGetValue(fileName, out script)) {
 				return scripts[fileName].Version.ToString();
 			}
 			return null; 
-        }
+		}
+
 		public IScriptSnapshot getScriptSnapshot(string fileName)
 		{
 			Script script;
-			if(this.scripts.TryGetValue(fileName, out script)){
+			if (this.scripts.TryGetValue(fileName, out script)) {
 				return new ScriptSnapshot(logger, script);
 			}
 			return null; 
-        }
-        public string getLocalizedDiagnosticMessages()
-        {
-            return "undefined";
-        }
-        public ICancellationToken getCancellationToken()
-        {
-            //@TODO fix this 
-            return new LanguageServiceCancellationToken();
-        }
-        public string getCurrentDirectory()
-        {
-            //@ TODO is this correct
-            return String.Empty;
-        }
-        public string getDefaultLibFileName(ICompilerOptions options)
-        {
-            return this.defaultLibScriptFileName;
-        }
+		}
 
-        public void log(string s)
-        {
-            logger.log(s);
-        }
+		public string getLocalizedDiagnosticMessages()
+		{
+			return "undefined";
+		}
 
-        public void trace(string s)
-        {
-            logger.log(s);
-        }
-        public void error(string s)
-        {
-            logger.log(s);
-        }
-        #endregion
+		public ICancellationToken getCancellationToken()
+		{
+//@TODO fix this 
+			return new LanguageServiceCancellationToken();
+		}
+
+		public string getCurrentDirectory()
+		{
+//@ TODO is this correct
+			return String.Empty;
+		}
+
+		public string getDefaultLibFileName(ICompilerOptions options)
+		{
+			return this.defaultLibScriptFileName;
+		}
+
+		public void log(string s)
+		{
+			logger.log(s);
+		}
+
+		public void trace(string s)
+		{
+			logger.log(s);
+		}
+
+		public void error(string s)
+		{
+			logger.log(s);
+		}
+
+		#endregion
 	}
 }
