@@ -132,6 +132,6 @@
     <Parser
                         id="TypeScriptParser"
                         class="ICSharpCode.TypeScriptBinding.TypeScriptParser"
-                        mimeType="text/x-typescript, application/x-csproject"/>
+                        mimeType="text/x-typescript, application/typescript"/>
   </Extension>
 </Addin>
