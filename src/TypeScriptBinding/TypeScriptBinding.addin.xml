@@ -24,7 +24,7 @@
     <Import file="msvcp100.dll"/>
     <Import file="msvcr100.dll"/>
 
-    <Import file="libV8_Net_Proxy.so"/>
+    <Import file="libV8_Net_Proxy.dylib"/>
 
     <Import file="Scripts/lib.d.ts"/>
     <Import file="Scripts/TypeScript-License.txt"/>
