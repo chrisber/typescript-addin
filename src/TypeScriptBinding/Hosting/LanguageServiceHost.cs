@@ -58,6 +58,7 @@ namespace TypeScriptHosting
 		internal void AddDefaultLibScript(FilePath fileName, string text)
 		{
 			defaultLibScriptFileName = fileName;
+			AddFile(fileName, text);
 		}
 
 		internal bool AddFile(FilePath fileName, string text)
@@ -177,6 +178,12 @@ namespace TypeScriptHosting
 
 		public IScriptSnapshot getScriptSnapshot(string fileName)
 		{
+			// Check filename for lib.d.ts or lib.es6.d.ts they have  ~17000 lines and do not change 
+			//means we shouldn't compute a script snapshot for them.
+			if (fileName.Contains("lib.d.ts") || fileName.Contains("lib.es6.d.ts")) {
+				return new ScriptSnapshot(logger, new Script(fileName,""));
+			}
+
 			Script script;
 			if (this.scripts.TryGetValue(fileName, out script)) {
 				return new ScriptSnapshot(logger, script);
