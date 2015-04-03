@@ -158,6 +158,7 @@
     <Compile Include="Hosting\NavigateToItemRegion.cs" />
     <Compile Include="Hosting\NavigationBarItemRegion.cs" />
     <Compile Include="Hosting\LanguageServiceCancellationToken.cs" />
+    <Compile Include="AddinInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\lib\Noesis.Javascript\x86\msvcp100.dll">
